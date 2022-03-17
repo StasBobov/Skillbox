@@ -11,4 +11,12 @@
 
 educational_grant, expenses = 10000, 12000
 
-# TODO здесь ваш код
+all_expenses = expenses
+for i in range(9):
+    expenses = expenses * 1.03
+    all_expenses += expenses
+
+all_grant = educational_grant * 10
+all_expenses = round(all_expenses, 2)
+
+print('Студенту надо попросить ' + str(round((all_expenses - all_grant), 2)) + ' рублей')

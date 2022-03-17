@@ -46,9 +46,22 @@ store = {
 #         подсчет стоимости товара
 #     вывод на консоль количества и стоимости товара на складе
 
-# TODO здесь ваш код
 
 
+for i in goods.items():
+    total_price = 0
+    all_kolvo = 0
+    stuff = i[0]
+    kod = i[1]
+    tovar = store.get(kod) # Список
+    for j in tovar: # Словари в списке
+        pos_price = 0
+        kolvo = j.get('quantity')
+        price = j.get('price')
+        pos_price = kolvo * price
+        all_kolvo += kolvo
+        total_price += pos_price
+    print(stuff + ' ' + str(all_kolvo) + ' шт, стоимость ' + str(total_price) + ' руб')
 
 
 
