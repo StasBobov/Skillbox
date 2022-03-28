@@ -44,33 +44,36 @@ blue = (0, 0, 255)
 purple = (128, 0, 128)
 white = (255, 255, 255)
 
-def get_my_vector(point_0, length, angle, screen=screen,):
+def triangle(start_point, length, angle, screen=screen,):
     # Хуй знает как оно работает, но делает углы
+    point_0 = start_point
     direction = (angle * math.pi) / 180
     dx = math.cos(direction) * length
     dy = math.sin(direction) * length
-    end_point = (point_0[0] + dx, (point_0[1] - dy))
-    pygame.draw.line(screen, white, point_0, end_point, 3)
-    point_0 = end_point
-    print(point_0)
-
-
-
-def triangle(point_0, length, angle, screen=screen,):
-        point_0 = [300, 300]
-        angle = 0
-        for i in range(3):
-            get_my_vector(point_0, length, angle)
-            angle = angle + 120
-            print(point_0)
+    new_angle = angle
+    for i in range(3):
+        direction = (new_angle * math.pi) / 180
+        dx = math.cos(direction) * length
+        dy = math.sin(direction) * length
+        end_point = (point_0[0] + dx, (point_0[1] - dy))
+        pygame.draw.line(screen, white, point_0, end_point, 3)
+        point_0 = end_point
+        new_angle += 120
 
 
 
 
 
+# def triangle(point_0, length, angle, screen=screen,):
+#         for i in range(3):
+#             get_my_vector(point_0, length, angle)
+#             angle = angle + 120
+#             print(point_0)
 
-point_0 = [300, 300]
-length = 200
+
+
+
+
 
 
 
@@ -88,7 +91,7 @@ while True:
 
 
     # pygame.draw.line(screen, white, [0, 0], [200, 200], 3)
-    triangle(point_0=point_0, length=length, angle=0)
+    triangle(start_point=[300, 300], length=200, angle=90)
 
 
     pygame.display.update()
