@@ -31,7 +31,6 @@ import math
 
 
 
-# TODO здесь ваш код
 screen = pygame.display.set_mode((1200, 600))
 clock = pygame.time.Clock()
 
@@ -60,9 +59,54 @@ def triangle(start_point, length, angle, screen=screen,):
         point_0 = end_point
         new_angle += 120
 
+def kvadrat(start_point, length, angle, screen=screen,):
+    # Хуй знает как оно работает, но делает углы
+    point_0 = start_point
+    direction = (angle * math.pi) / 180
+    dx = math.cos(direction) * length
+    dy = math.sin(direction) * length
+    new_angle = angle
+    for i in range(4):
+        direction = (new_angle * math.pi) / 180
+        dx = math.cos(direction) * length
+        dy = math.sin(direction) * length
+        end_point = (point_0[0] + dx, (point_0[1] - dy))
+        pygame.draw.line(screen, white, point_0, end_point, 3)
+        point_0 = end_point
+        new_angle += 90
 
 
+def five(start_point, length, angle, screen=screen,):
+    # Хуй знает как оно работает, но делает углы
+    point_0 = start_point
+    direction = (angle * math.pi) / 180
+    dx = math.cos(direction) * length
+    dy = math.sin(direction) * length
+    new_angle = angle
+    for i in range(5):
+        direction = (new_angle * math.pi) / 180
+        dx = math.cos(direction) * length
+        dy = math.sin(direction) * length
+        end_point = (point_0[0] + dx, (point_0[1] - dy))
+        pygame.draw.line(screen, white, point_0, end_point, 3)
+        point_0 = end_point
+        new_angle += 72
 
+def six(start_point, length, angle, screen=screen,):
+    # Хуй знает как оно работает, но делает углы
+    point_0 = start_point
+    direction = (angle * math.pi) / 180
+    dx = math.cos(direction) * length
+    dy = math.sin(direction) * length
+    new_angle = angle
+    for i in range(6):
+        direction = (new_angle * math.pi) / 180
+        dx = math.cos(direction) * length
+        dy = math.sin(direction) * length
+        end_point = (point_0[0] + dx, (point_0[1] - dy))
+        pygame.draw.line(screen, white, point_0, end_point, 3)
+        point_0 = end_point
+        new_angle += 60
 
 # def triangle(point_0, length, angle, screen=screen,):
 #         for i in range(3):
@@ -91,8 +135,10 @@ while True:
 
 
     # pygame.draw.line(screen, white, [0, 0], [200, 200], 3)
-    triangle(start_point=[300, 300], length=200, angle=90)
-
+    triangle(start_point=[300, 250], length=200, angle=90)
+    kvadrat(start_point=[600, 300], length=200, angle=60)
+    five(start_point=[900, 300], length=150, angle=0)
+    six(start_point=[350, 500], length=120, angle=0)
 
     pygame.display.update()
     clock.tick(60)
