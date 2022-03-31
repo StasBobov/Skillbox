@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import simple_draw as sd
 
 # Запросить у пользователя желаемую фигуру посредством выбора из существующих
 #   вывести список всех фигур с номерами и ждать ввода номера желаемой фигуры.
@@ -34,9 +33,6 @@ white = (255, 255, 255)
 def triangle(length, angle, color=white, screen=screen, start_point=center):
     # Хуй знает как оно работает, но делает углы
     point_0 = start_point
-    direction = (angle * math.pi) / 180
-    dx = math.cos(direction) * length
-    dy = math.sin(direction) * length
     new_angle = angle
     for i in range(3):
         direction = (new_angle * math.pi) / 180
@@ -50,9 +46,6 @@ def triangle(length, angle, color=white, screen=screen, start_point=center):
 def kvadrat(length, angle,color=white, screen=screen, start_point=center):
     # Хуй знает как оно работает, но делает углы
     point_0 = start_point
-    direction = (angle * math.pi) / 180
-    dx = math.cos(direction) * length
-    dy = math.sin(direction) * length
     new_angle = angle
     for i in range(4):
         direction = (new_angle * math.pi) / 180
@@ -67,9 +60,6 @@ def kvadrat(length, angle,color=white, screen=screen, start_point=center):
 def five(length, angle, color=white, screen=screen, start_point=center):
     # Хуй знает как оно работает, но делает углы
     point_0 = start_point
-    direction = (angle * math.pi) / 180
-    dx = math.cos(direction) * length
-    dy = math.sin(direction) * length
     new_angle = angle
     for i in range(5):
         direction = (new_angle * math.pi) / 180
@@ -83,9 +73,6 @@ def five(length, angle, color=white, screen=screen, start_point=center):
 def six(length, angle, color=white, screen=screen, start_point=center):
     # Хуй знает как оно работает, но делает углы
     point_0 = start_point
-    direction = (angle * math.pi) / 180
-    dx = math.cos(direction) * length
-    dy = math.sin(direction) * length
     new_angle = angle
     for i in range(6):
         direction = (new_angle * math.pi) / 180
@@ -98,8 +85,7 @@ def six(length, angle, color=white, screen=screen, start_point=center):
 
 pygame.init()
 
-screen = pygame.display.set_mode((1200, 600))
-clock = pygame.time.Clock()
+
 
 while True:
     for event in pygame.event.get():
@@ -126,5 +112,3 @@ while True:
     clock.tick(60)
 
 
-
-sd.pause()

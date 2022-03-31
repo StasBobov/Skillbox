@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import simple_draw as sd
+
 
 # 1) Написать функцию draw_branches, которая должна рисовать две ветви дерева из начальной точки
 # Функция должна принимать параметры:
@@ -28,6 +28,54 @@ import simple_draw as sd
 
 # TODO здесь ваш код
 
+import pygame
+import sys
+import math
+
+green = (0, 128, 0)
+
+def draw_branches(point_0, angle, length):
+    direction = (90 * math.pi) / 180
+    dx = math.cos(direction) * length
+    dy = math.sin(direction) * length
+    end_point = (point_0[0] + dx, (point_0[1] - dy))
+    pygame.draw.line(screen, green, point_0, end_point, 4)
+    point_0 = end_point
+    while length >= 100:
+    # for i in range(3):
+        angle = angle + 30
+        length = length * 0.75
+        direction = (angle * math.pi) / 180
+        dx = math.cos(direction) * length
+        dy = math.sin(direction) * length
+        end_point = (point_0[0] + dx, (point_0[1] - dy))
+        pygame.draw.line(screen, green, point_0, end_point, 4)
+        draw_branches(end_point, angle, length)
+    # # while next_length >= 10:
+    #     next_length = next_length * 0.75
+    #     direction = (angle * math.pi) / 180
+    #     dx = math.cos(direction) * length
+    #     dy = math.sin(direction) * length
+    #     end_point = (point_0[0] - dx, (point_0[1] - dy))
+    #     draw_branches(end_point, 30, next_length)
+
+
+pygame.init()
+
+screen = pygame.display.set_mode((1200, 600))
+clock = pygame.time.Clock()
+
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+    length = 200
+
+    draw_branches((600, 600), 0, length)
+    pygame.display.update()
+    clock.tick(60)
+
 # 4) Усложненное задание (делать по желанию)
 # - сделать рандомное отклонение угла ветвей в пределах 40% от 30-ти градусов
 # - сделать рандомное отклонение длины ветвей в пределах 20% от коэффициента 0.75
@@ -36,6 +84,5 @@ import simple_draw as sd
 # Пригодятся функции
 # sd.random_number()
 
-sd.pause()
 
 
