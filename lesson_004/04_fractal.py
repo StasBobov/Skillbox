@@ -34,23 +34,25 @@ import math
 
 green = (0, 128, 0)
 
-def draw_branches(point_0, angle, length):
-    direction = (90 * math.pi) / 180
-    dx = math.cos(direction) * length
-    dy = math.sin(direction) * length
-    end_point = (point_0[0] + dx, (point_0[1] - dy))
-    pygame.draw.line(screen, green, point_0, end_point, 4)
-    point_0 = end_point
-    while length >= 100:
+def draw_branches(point_0, angle, length, first_tree=0):
+    if first_tree == 0:
+        one_direction = (90 * math.pi) / 180
+        dx = math.cos(one_direction) * length
+        dy = math.sin(one_direction) * length
+        end_point = (point_0[0] + dx, (point_0[1] - dy))
+        pygame.draw.line(screen, green, point_0, end_point, 4)
+        point_0 = end_point
+        first_tree = 1
+        next_angle = angle
+    while length >= 10:
     # for i in range(3):
-        angle = angle + 30
         length = length * 0.75
         direction = (angle * math.pi) / 180
         dx = math.cos(direction) * length
         dy = math.sin(direction) * length
         end_point = (point_0[0] + dx, (point_0[1] - dy))
         pygame.draw.line(screen, green, point_0, end_point, 4)
-        draw_branches(end_point, angle, length)
+        draw_branches(end_point, (angle+next_angle), length, first_tree=1)
     # # while next_length >= 10:
     #     next_length = next_length * 0.75
     #     direction = (angle * math.pi) / 180
@@ -72,7 +74,7 @@ while True:
             sys.exit()
     length = 200
 
-    draw_branches((600, 600), 0, length)
+    draw_branches((600, 600), 30, length)
     pygame.display.update()
     clock.tick(60)
 
