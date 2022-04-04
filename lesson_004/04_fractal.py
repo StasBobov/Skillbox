@@ -34,25 +34,49 @@ import math
 
 green = (0, 128, 0)
 
-def draw_branches(point_0, angle, length, first_tree=0):
+def draw_branches(point_0, angle, length, first_tree=0, next_angle=0):
     if first_tree == 0:
         one_direction = (90 * math.pi) / 180
         dx = math.cos(one_direction) * length
         dy = math.sin(one_direction) * length
         end_point = (point_0[0] + dx, (point_0[1] - dy))
         pygame.draw.line(screen, green, point_0, end_point, 4)
+        print('Я рисую ствол ' + str(point_0) + str(end_point))
         point_0 = end_point
-        first_tree = 1
         next_angle = angle
-    while length >= 10:
-    # for i in range(3):
+    if length < 10:
+        return
+    else:
+        if first_tree == 0:
+            length = length * 0.75
+            direction = (angle * math.pi) / 180
+            dx = math.cos(direction) * length
+            dy = math.sin(direction) * length
+            end_point = (point_0[0] + dx, (point_0[1] - dy))
+            pygame.draw.line(screen, green, point_0, end_point, 4)
+            first_tree = 1
+            point_0 = end_point
+    if first_tree == 1:
+        angle = angle + next_angle
         length = length * 0.75
         direction = (angle * math.pi) / 180
         dx = math.cos(direction) * length
         dy = math.sin(direction) * length
         end_point = (point_0[0] + dx, (point_0[1] - dy))
+        draw_branches(end_point, angle, length, first_tree=1, next_angle=next_angle)
         pygame.draw.line(screen, green, point_0, end_point, 4)
-        draw_branches(end_point, (angle+next_angle), length, first_tree=1)
+    else:
+        if first_tree == 0:
+
+    if first_tree == 1:
+        angle = angle + next_angle
+        length = length * 0.75
+        direction = (angle * math.pi) / 180
+        dx = math.cos(direction) * length
+        dy = math.sin(direction) * length
+        end_point = (point_0[0] - dx, (point_0[1] - dy))
+        draw_branches(end_point, angle, length, first_tree=1, next_angle=next_angle)
+        pygame.draw.line(screen, green, point_0, end_point, 4)
     # # while next_length >= 10:
     #     next_length = next_length * 0.75
     #     direction = (angle * math.pi) / 180
