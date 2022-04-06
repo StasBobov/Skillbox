@@ -38,13 +38,13 @@ sienna = (160, 82, 45)
 
 def first_tree(point_0):
     direction = (90 * math.pi) / 180
-    dx = math.cos(direction) * length
-    dy = math.sin(direction) * length
+    dx = math.cos(direction) * 200
+    dy = math.sin(direction) * 200
     end_point = (point_0[0] + dx, (point_0[1] - dy))
     pygame.draw.line(screen, sienna, point_0, end_point, 4)
     return end_point
 
-def other_branches(start_point,angle):
+def other_branches(start_point, angle, length):
     direction = (angle * math.pi) / 180
     dx = math.cos(direction) * length
     dy = math.sin(direction) * length
@@ -52,20 +52,27 @@ def other_branches(start_point,angle):
     end_pointl = (start_point[0] - dx, (start_point[1] - dy))
     pygame.draw.line(screen, green, start_point, end_pointr, 3)
     pygame.draw.line(screen, green, start_point, end_pointl, 3)
-    return [end_pointr, end_pointl]
+    if angle <= -180:
+        angle = 165
+    elif -180 < angle:
+        angle = angle - 15
+    length = length * 0.75
+    return [end_pointr, end_pointl, angle, length]
 
 def draw_branches(point_0, angle, length, trunk=0, start_point=[0, 0]):
-    if length < 10:
+    if length < 50:
         return
     if trunk == 0:
         start_point = first_tree(point_0)
         trunk = 1
-    start_point = point_0
-    start_points = other_branches(start_point, angle)
-    start_pointr = start_points[1]
-    start_pointl = start_points[0]
-    draw_branches(start_pointr, angle, length*0.75, trunk)
-    draw_branches(start_pointl, angle, length*0.75, trunk)
+    results = other_branches(start_point, angle, length)
+    start_pointr = results[0]
+    start_pointl = results[1]
+    angle = results[2]
+    length = results[3]
+    print(angle, length)
+    draw_branches(start_pointr, angle, length, trunk, start_pointr)
+    draw_branches(start_pointl, angle, length, trunk, start_pointl)
 
 
 
@@ -86,7 +93,7 @@ while True:
             sys.exit()
     length = 200
 
-    draw_branches((600, 600), 30, length)
+    draw_branches((600, 600), 45, length)
     pygame.display.update()
     clock.tick(60)
 
