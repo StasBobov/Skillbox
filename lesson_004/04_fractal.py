@@ -87,7 +87,6 @@ while True:
     length = 200
 
     draw_branches((600, 600), 30, length)
-
     pygame.display.update()
     clock.tick(60)
 
