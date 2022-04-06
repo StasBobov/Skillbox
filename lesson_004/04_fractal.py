@@ -34,45 +34,42 @@ import sys
 import math
 
 green = (0, 128, 0)
+sienna = (160, 82, 45)
 
-# next_angle=0, point_0r=[0, 0] - костыли
-def draw_branches(point_0, angle, length, first_tree=0, next_angle=0, point_0r=[0, 0], point_0l=[0, 0]):
-    if first_tree == 0:
-        one_direction = (90 * math.pi) / 180
-        dx = math.cos(one_direction) * length
-        dy = math.sin(one_direction) * length
-        end_point = (point_0[0] + dx, (point_0[1] - dy))
-        pygame.draw.line(screen, green, point_0, end_point, 4)
-        point_0r = end_point
-        point_0l = end_point
-        next_angle = angle
-        length = length * 0.75
-        direction = (angle * math.pi) / 180
-        dx = math.cos(direction) * length
-        dy = math.sin(direction) * length
-        end_pointr = (point_0r[0] + dx, (point_0r[1] - dy))
-        end_pointl = (point_0l[0] - dx, (point_0l[1] - dy))
-        pygame.draw.line(screen, green, point_0r, end_pointr, 4)
-        pygame.draw.line(screen, green, point_0l, end_pointl, 4)
-        first_tree = 1
-        point_0r = end_pointr
-        point_0l = end_pointl
+def first_tree(point_0):
+    direction = (90 * math.pi) / 180
+    dx = math.cos(direction) * length
+    dy = math.sin(direction) * length
+    end_point = (point_0[0] + dx, (point_0[1] - dy))
+    pygame.draw.line(screen, sienna, point_0, end_point, 4)
+    return end_point
+
+def other_branches(start_point,angle):
+    direction = (angle * math.pi) / 180
+    dx = math.cos(direction) * length
+    dy = math.sin(direction) * length
+    end_pointr = (start_point[0] + dx, (start_point[1] - dy))
+    end_pointl = (start_point[0] - dx, (start_point[1] - dy))
+    pygame.draw.line(screen, green, start_point, end_pointr, 3)
+    pygame.draw.line(screen, green, start_point, end_pointl, 3)
+    return [end_pointr, end_pointl]
+
+def draw_branches(point_0, angle, length, trunk=0, start_point=[0, 0]):
     if length < 10:
         return
+    if trunk == 0:
+        start_point = first_tree(point_0)
+        trunk = 1
+    start_point = point_0
+    start_points = other_branches(start_point, angle)
+    start_pointr = start_points[1]
+    start_pointl = start_points[0]
+    draw_branches(start_pointr, angle, length*0.75, trunk)
+    draw_branches(start_pointl, angle, length*0.75, trunk)
 
-    if first_tree == 1:
-        angle = angle + next_angle
-        length = length * 0.75
-        direction = (angle * math.pi) / 180
-        dx = math.cos(direction) * length
-        dy = math.sin(direction) * length
-        end_pointr = (point_0r[0] + dx, (point_0r[1] - dy))
-        end_pointl = (point_0l[0] - dx, (point_0l[1] - dy))
-        pygame.draw.line(screen, green, point_0r, end_pointr, 4)
-        print(point_0r, point_0l)
-        pygame.draw.line(screen, green, point_0l, end_pointl, 4)
-        draw_branches(end_pointr, angle, length, first_tree=1, next_angle=next_angle, point_0r=end_pointr, point_0l=end_pointl)
-        draw_branches(end_pointr, angle, length, first_tree=1, next_angle=next_angle, point_0l=end_pointl, point_0r=end_pointr)
+
+
+
 
 
 
@@ -90,6 +87,7 @@ while True:
     length = 200
 
     draw_branches((600, 600), 30, length)
+
     pygame.display.update()
     clock.tick(60)
 
@@ -103,3 +101,41 @@ while True:
 
 
 
+# # next_angle=0, point_0r=[0, 0] - костыли
+# def draw_branches(point_0, angle, length, first_tree=0, next_angle=0, point_0r=[0, 0], point_0l=[0, 0]):
+#     if first_tree == 0:
+#         one_direction = (90 * math.pi) / 180
+#         dx = math.cos(one_direction) * length
+#         dy = math.sin(one_direction) * length
+#         end_point = (point_0[0] + dx, (point_0[1] - dy))
+#         pygame.draw.line(screen, green, point_0, end_point, 4)
+#         point_0r = end_point
+#         point_0l = end_point
+#         next_angle = angle
+#         length = length * 0.75
+#         direction = (angle * math.pi) / 180
+#         dx = math.cos(direction) * length
+#         dy = math.sin(direction) * length
+#         end_pointr = (point_0r[0] + dx, (point_0r[1] - dy))
+#         end_pointl = (point_0l[0] - dx, (point_0l[1] - dy))
+#         pygame.draw.line(screen, green, point_0r, end_pointr, 4)
+#         pygame.draw.line(screen, green, point_0l, end_pointl, 4)
+#         first_tree = 1
+#         point_0r = end_pointr
+#         point_0l = end_pointl
+#     if length < 10:
+#         return
+#
+#     if first_tree == 1:
+#         angle = angle + next_angle
+#         length = length * 0.75
+#         direction = (angle * math.pi) / 180
+#         dx = math.cos(direction) * length
+#         dy = math.sin(direction) * length
+#         end_pointr = (point_0r[0] + dx, (point_0r[1] - dy))
+#         end_pointl = (point_0l[0] - dx, (point_0l[1] - dy))
+#         pygame.draw.line(screen, green, point_0r, end_pointr, 4)
+#         print(point_0r, point_0l)
+#         pygame.draw.line(screen, green, point_0l, end_pointl, 4)
+#         draw_branches(end_pointr, angle, length, first_tree=1, next_angle=next_angle, point_0r=end_pointr, point_0l=end_pointl)
+#         draw_branches(end_pointr, angle, length, first_tree=1, next_angle=next_angle, point_0l=end_pointl, point_0r=end_pointr)
