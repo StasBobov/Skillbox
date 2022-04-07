@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import simple_draw as sd
+
 
 
 # На основе кода из практической части реализовать снегопад:
@@ -18,16 +18,33 @@ N = 20
 # sd.user_want_exit()
 
 # TODO здесь ваш код
-while True:
-    sd.clear_screen()
-    pass
-    pass
-    pass
-    sd.sleep(0.1)
-    if sd.user_want_exit():
-        break
 
-sd.pause()
+import pygame
+import sys
+
+white = (255, 255, 255)
+
+def snowflake(center, length, color=white, factor_a=0.6, factor_b=0.35, factor_c=60):
+    pygame.draw.line(screen, color, (center[0]/2, center[1]), (center[0]*1.5, center[1]), 1)
+    pygame.draw.line(screen, color, (center[0] / 2, center[1]), (center[0] * 1.5, center[1]), 1)
+
+
+pygame.init()
+
+screen = pygame.display.set_mode((1200, 600))
+clock = pygame.time.Clock()
+
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+
+    snowflake(center=(300, 300), length=200)
+
+    pygame.display.update()
+    clock.tick(60)
+
 
 # подсказка! для ускорения отрисовки можно
 #  - убрать clear_screen()
