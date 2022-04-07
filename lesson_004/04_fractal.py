@@ -27,11 +27,11 @@
 
 # можно поиграть -шрифтами- цветами и углами отклонения
 
-# TODO здесь ваш код
 
 import pygame
 import sys
 import math
+import random
 
 green = (0, 128, 0)
 sienna = (160, 82, 45)
@@ -44,33 +44,34 @@ def first_tree(point_0):
     pygame.draw.line(screen, sienna, point_0, end_point, 4)
     return end_point
 
-def other_branches(start_point, angle, length):
-    direction = (angle * math.pi) / 180
+def other_branches(start_point, angle, length, first_length):
+    direction = (random.randint(12, 75) * math.pi) / 180
     dx = math.cos(direction) * length
     dy = math.sin(direction) * length
     end_pointr = (start_point[0] + dx, (start_point[1] - dy))
     end_pointl = (start_point[0] - dx, (start_point[1] - dy))
     pygame.draw.line(screen, green, start_point, end_pointr, 3)
     pygame.draw.line(screen, green, start_point, end_pointl, 3)
-    if angle <= -180:
-        angle = 165
-    elif -180 < angle:
-        angle = angle - 15
-    length = length * 0.75
+    # if angle <= -180:
+    #     angle = 165
+    # elif -180 < angle:
+    #     angle = angle - 15
+    length = first_length * (random.randint(8, 12) / 10) * 0.75
+    print(length)
     return [end_pointr, end_pointl, angle, length]
 
-def draw_branches(point_0, angle, length, trunk=0, start_point=[0, 0]):
-    if length < 50:
+def draw_branches(point_0, angle, length, trunk=0, start_point=[0, 0], first_length=0):
+    if length < 10:
         return
     if trunk == 0:
         start_point = first_tree(point_0)
+        first_length = length
         trunk = 1
-    results = other_branches(start_point, angle, length)
+    results = other_branches(start_point, angle, length, first_length=first_length)
     start_pointr = results[0]
     start_pointl = results[1]
     angle = results[2]
     length = results[3]
-    print(angle, length)
     draw_branches(start_pointr, angle, length, trunk, start_pointr)
     draw_branches(start_pointl, angle, length, trunk, start_pointl)
 
@@ -87,12 +88,12 @@ screen = pygame.display.set_mode((1200, 600))
 clock = pygame.time.Clock()
 
 while True:
+    screen.fill([0, 0, 0])
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
     length = 200
-
     draw_branches((600, 600), 45, length)
     pygame.display.update()
     clock.tick(60)
