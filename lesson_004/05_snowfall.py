@@ -17,11 +17,11 @@ N = 20
 # sd.random_number()
 # sd.user_want_exit()
 
-# TODO здесь ваш код
 
 import pygame
 import sys
 import time
+import random
 
 white = (255, 255, 255)
 navy = (0, 0, 128)
@@ -64,6 +64,13 @@ y = 0
 x = 100
 length = 50
 
+x_list = [random.randint(0, 1200) for i in range(N)]
+y_list = [random.randint(0, 100) for j in range(N)]
+l_list = [random.randint(10, 100) for k in range(N)]
+snowdriftx = []
+snowdrifty = []
+snowdriftl = []
+
 while True:
     screen.fill(navy)
     for event in pygame.event.get():
@@ -71,13 +78,30 @@ while True:
             pygame.quit()
             sys.exit()
 
-    if y >= 600 - length:
-        y = 600 - length
-    if x >= 1200 - length:
-        x = 1200 - length
-    snowflake(center=(x, y), length=length)
-    y += 10
-    x = x * 1.1
+
+    for i in range(N):
+        x = x_list[i]
+        y = y_list[i]
+        l = l_list[i]
+        snowflake(center=(x, y), length=l)
+
+    for i in range(N):
+        if y_list[i] >= 600 - l_list[i]:
+            if 0 + l_list[i] <= x_list[i] <= 1200 - l_list[i]:
+                snowdriftx.append(x_list.pop(i))
+                snowdrifty.append(y_list.pop(i))
+                snowdriftl.append(l_list.pop(i))
+                x_list.append(random.randint(0, 1200))
+                y_list.append(random.randint(0, 100))
+                l_list.append(random.randint(10, 100))
+        else:
+            x_list[i] = x_list[i] * random.randint(9, 11) / 10
+            y_list[i] = y_list[i] + 10
+
+        for j in range(len(snowdriftx)):
+            snowflake(center=(snowdriftx[j], snowdrifty[j]), length=snowdriftl[j])
+            print(snowdriftx, snowdrifty, snowdriftl)
+
     time.sleep(0.1)
     pygame.display.update()
     clock.tick(60)
