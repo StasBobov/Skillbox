@@ -100,7 +100,7 @@ while True:
 
         for j in range(len(snowdriftx)):
             snowflake(center=(snowdriftx[j], snowdrifty[j]), length=snowdriftl[j])
-            print(snowdriftx, snowdrifty, snowdriftl)
+
 
     time.sleep(0.1)
     pygame.display.update()
