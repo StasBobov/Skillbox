@@ -32,13 +32,14 @@ screen = pygame.display.set_mode((1200, 600))
 clock = pygame.time.Clock()
 
 while True:
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
 
 
-    nature.snowfall(screen)
+    house.wall(screen)
 
     time.sleep(0.1)
     pygame.display.update()

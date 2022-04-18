@@ -5,18 +5,24 @@ yellow = (255, 255, 0)
 blue = (0, 0, 255)
 
 def wall(screen):
-    x = -150
-    y = -51
+    x = 360
+    y = 380
 
-    for j in range(12): # Обозначиваем ряд
-        y += 50
-        if x == 1150:
-            x = -100
-        else:
-            x = -150
-        for i in range(13): # Рисуем кирпич
-            x += 100
-            pygame.draw.rect(screen, (244, 164, 96), (x, y, 100, 50), 2)
+    for j in range(5): # Обозначиваем ряд
+        y += 20
+        x = 360
+        for i in range(10): # Рисуем кирпич
+            x += 40
+            pygame.draw.rect(screen, (244, 164, 96), (x, y, 40, 20), 2)
+        y += 20
+        x = 400
+        pygame.draw.rect(screen, (244, 164, 96), (x, y, 20, 20), 2)
+        x = 380
+        for i in range(9): # Рисуем кирпич
+            x += 40
+            pygame.draw.rect(screen, (244, 164, 96), (x, y, 40, 20), 2)
+        pygame.draw.rect(screen, (244, 164, 96), (x+40, y, 20, 20), 2)
+
 
 def smile(screen, j):
     pygame.draw.circle(screen, yellow, (j[0], j[1]), 50)
