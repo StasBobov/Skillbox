@@ -23,6 +23,7 @@
 import pygame
 import sys
 from village import nature, house
+import time
 
 
 
@@ -36,10 +37,10 @@ while True:
             pygame.quit()
             sys.exit()
 
-    nature.rainbow_line(screen)
-    house.wall(screen)
 
+    nature.snowfall(screen)
 
+    time.sleep(0.1)
     pygame.display.update()
     clock.tick(60)
 
