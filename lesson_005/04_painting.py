@@ -39,7 +39,7 @@ while True:
             sys.exit()
 
 
-    house.wall(screen)
+    house.wall(screen, 360, 380)
 
     time.sleep(0.1)
     pygame.display.update()

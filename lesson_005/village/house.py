@@ -4,13 +4,13 @@ import pygame
 yellow = (255, 255, 0)
 blue = (0, 0, 255)
 
-def wall(screen):
-    x = 360
-    y = 380
+def wall(screen, x1, y1):
+    x = x1
+    y = y1
 
     for j in range(5): # Обозначиваем ряд
         y += 20
-        x = 360
+        x = x1
         for i in range(10): # Рисуем кирпич
             x += 40
             pygame.draw.rect(screen, (244, 164, 96), (x, y, 40, 20), 2)
