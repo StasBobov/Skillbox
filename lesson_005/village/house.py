@@ -3,8 +3,12 @@ import pygame
 
 yellow = (255, 255, 0)
 blue = (0, 0, 255)
+red = (255, 0, 0)
+fuchsia = (255, 0, 255)
+saddlebrown = (139, 69, 19)
 
 def wall(screen, x1, y1):
+    pygame.draw.rect(screen, saddlebrown, (x1+40, y1+20, 400, 200))
     x = x1
     y = y1
 
@@ -15,18 +19,44 @@ def wall(screen, x1, y1):
             x += 40
             pygame.draw.rect(screen, (244, 164, 96), (x, y, 40, 20), 2)
         y += 20
-        x = 400
+        x = x1 + 40
         pygame.draw.rect(screen, (244, 164, 96), (x, y, 20, 20), 2)
-        x = 380
+        x = x1 + 20
         for i in range(9): # Рисуем кирпич
             x += 40
             pygame.draw.rect(screen, (244, 164, 96), (x, y, 40, 20), 2)
         pygame.draw.rect(screen, (244, 164, 96), (x+40, y, 20, 20), 2)
 
 
-def smile(screen, j):
-    pygame.draw.circle(screen, yellow, (j[0], j[1]), 50)
-    pygame.draw.circle(screen, blue, ((j[0]) - 15, (j[1] - 8)), 5, 1)
-    pygame.draw.circle(screen, blue, ((j[0]) + 15, (j[1] - 8)), 5, 1)
-    pygame.draw.arc(screen, blue, ((j[0]) - 25, (j[1] - 20), 50, 50),
-                    3.14, 2 * 3.14, 1)
+def window(screen, x, y):
+    pygame.draw.rect(screen, yellow, (x + 220, y + 40, 180, 100))
+
+
+
+def smile_see(screen, j):
+    # лицо
+    pygame.draw.circle(screen, fuchsia, (j[0], j[1]), 25)
+    # глаза
+    pygame.draw.circle(screen, blue, ((j[0]) - 7.5, (j[1] - 4)), 4)
+    pygame.draw.circle(screen, blue, ((j[0]) + 7.5, (j[1] - 4)), 4)
+    # улыбка
+    pygame.draw.arc(screen, blue, ((j[0]) - 15, (j[1] - 10), 30, 30),
+                    3.14 * 1.1, 1.9 * 3.14, 2)
+    # лицо
+    pygame.draw.circle(screen, fuchsia, (j[0], j[1]), 25)
+    # глаза
+    pygame.draw.line(screen, blue, ((j[0]) - 12.5, (j[1] - 4)), ((j[0]) - 3.5, (j[1] - 4)), 2)
+    pygame.draw.line(screen, blue, ((j[0]) + 12.5, (j[1] - 4)), ((j[0]) + 3.5, (j[1] - 4)),2)
+    # улыбка
+    pygame.draw.arc(screen, blue, ((j[0]) - 15, (j[1] - 10), 30, 30),
+                    3.14 * 1.1, 1.9 * 3.14, 2)
+
+# def smile_sleep(screen, j):
+#     # лицо
+#     pygame.draw.circle(screen, fuchsia, (j[0], j[1]), 25)
+#     # глаза
+#     pygame.draw.line(screen, blue, ((j[0]) - 12.5, (j[1] - 4)), ((j[0]) - 3.5, (j[1] - 4)), 2)
+#     pygame.draw.line(screen, blue, ((j[0]) + 12.5, (j[1] - 4)), ((j[0]) + 3.5, (j[1] - 4)),2)
+#     # улыбка
+#     pygame.draw.arc(screen, blue, ((j[0]) - 15, (j[1] - 10), 30, 30),
+#                     3.14 * 1.1, 1.9 * 3.14, 2)

@@ -25,7 +25,8 @@ import sys
 from village import nature, house
 import time
 
-
+x = 360
+y = 380
 
 pygame.init()
 screen = pygame.display.set_mode((1200, 600))
@@ -38,8 +39,18 @@ while True:
             pygame.quit()
             sys.exit()
 
+    nature.snowfall(screen)
+    house.wall(screen, x, y)
+    house.window(screen, x, y)
+    house.smile_see(screen, (x+310, y+115))
+    nature.draw_branches(screen, (1000, 600), 35, 40)
+    nature.draw_branches(screen, (100, 600), 35, 40)
+    nature.draw_branches(screen, (350, 600), 35, 40)
+    nature.rainbow_oval(screen, 745, 645, 800)
+    nature.sun(screen)
 
-    house.wall(screen, 360, 380)
+
+
 
     time.sleep(0.1)
     pygame.display.update()

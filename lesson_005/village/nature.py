@@ -15,6 +15,9 @@ white = (255, 255, 255)
 navy = (0, 0, 128)
 green = (0, 128, 0)
 sienna = (160, 82, 45)
+gold = (255, 215, 0)
+black = (0, 0, 0)
+lightskyblue = (135, 206, 250)
 
 N = 20
 x_list = [random.randint(0, 1200) for i in range(N)]
@@ -34,16 +37,11 @@ def rainbow_line(screen):
         x2 += 5
         pygame.draw.line(screen, i, [x1, y1], [x2, y2], 4)
 
-def rainbow_oval(screen):
+def rainbow_oval(screen, xr, yr, dim):
     rainbow = (red, orange, yellow, green, cyan, blue, purple)
-    screen.fill((255, 255, 255))
-
-    xr = 600
-    yr = 1250
-
-    for i in rainbow:
+    for i in range(7):
         yr -= 5
-        pygame.draw.circle(screen, i, [xr, yr], 900, 4)
+        pygame.draw.circle(screen, rainbow[random.randint(0, 6)], [xr, yr], dim, 4)
 
 def first_tree(screen, point_0):
     direction = (90 * math.pi) / 180
@@ -126,7 +124,7 @@ def snowflake(screen, center, length, color=white):
                      (center[0] + (length * 0.85), center[1] + (length * 0.6)), 1)
 
 def snowfall(screen, x_list=x_list, y_list=y_list, l_list=l_list, snowdriftx = [], snowdrifty = [], snowdriftl = []):
-    screen.fill(navy)
+    screen.fill(lightskyblue)
     for i in range(N):
         x = x_list[i]
         y = y_list[i]
@@ -152,5 +150,8 @@ def snowfall(screen, x_list=x_list, y_list=y_list, l_list=l_list, snowdriftx = [
 
         if x_list == True:
             snowfall(screen, x_list, y_list, l_list, snowdriftx, snowdrifty, snowdriftl)
+
+def sun(screen):
+    pygame.draw.circle(screen, gold, (1050, 100), 50)
 
 
