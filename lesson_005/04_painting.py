@@ -43,6 +43,7 @@ while True:
     house.wall(screen, x, y)
     house.window(screen, x, y)
     house.smile_see(screen, (x+310, y+115))
+    house.roof(screen, x, y)
     nature.draw_branches(screen, (1000, 600), 35, 40)
     nature.draw_branches(screen, (100, 600), 35, 40)
     nature.draw_branches(screen, (350, 600), 35, 40)

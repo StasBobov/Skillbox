@@ -6,6 +6,7 @@ blue = (0, 0, 255)
 red = (255, 0, 0)
 fuchsia = (255, 0, 255)
 saddlebrown = (139, 69, 19)
+maroon = (128, 0, 0)
 
 smile_eyes = dict(eyes='open')
 
@@ -34,6 +35,9 @@ def wall(screen, x1, y1):
 def window(screen, x, y):
     pygame.draw.rect(screen, yellow, (x + 220, y + 40, 180, 100))
 
+def roof(screen, x, y):
+    pygame.draw.polygon(screen, maroon, [[x, y+20], [x+440, y+20], [x+200, y-100]])
+
 
 
 def smile_see(screen, j, smile_eyes=smile_eyes):
@@ -58,13 +62,3 @@ def smile_see(screen, j, smile_eyes=smile_eyes):
         pygame.draw.arc(screen, blue, ((j[0]) - 15, (j[1] - 10), 30, 30),
                         3.14 * 1.1, 1.9 * 3.14, 2)
         smile_eyes['eyes'] = 'open'
-
-# def smile_sleep(screen, j):
-#     # лицо
-#     pygame.draw.circle(screen, fuchsia, (j[0], j[1]), 25)
-#     # глаза
-#     pygame.draw.line(screen, blue, ((j[0]) - 12.5, (j[1] - 4)), ((j[0]) - 3.5, (j[1] - 4)), 2)
-#     pygame.draw.line(screen, blue, ((j[0]) + 12.5, (j[1] - 4)), ((j[0]) + 3.5, (j[1] - 4)),2)
-#     # улыбка
-#     pygame.draw.arc(screen, blue, ((j[0]) - 15, (j[1] - 10), 30, 30),
-#                     3.14 * 1.1, 1.9 * 3.14, 2)

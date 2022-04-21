@@ -25,10 +25,18 @@ N = 20
 x_list = [random.randint(0, 1200) for i in range(N)]
 y_list = [random.randint(0, 100) for j in range(N)]
 l_list = [random.randint(10, 30) for k in range(N)]
+# 1, 3, 9, 5, 7
+first_sun_rays1x = [1050, 1100, 1000, 1080, 1020]
+first_sun_rays1y = [153, 120, 120, 56, 56]
+first_sun_rays2x = [1050, 1125, 975, 1100, 995]
+first_sun_rays2y = [183, 135, 135, 34, 34]
+# 2, 10, 6, 4, 8
+second_sun_rays1x = [1080, 1020, 1050, 1100, 1000]
+second_sun_rays1y = [144, 144, 47, 80, 80]
+second_sun_rays2x = [1100, 1000, 1050, 1125, 975]
+second_sun_rays2y = [166, 166, 17, 65, 65]
 
-sun_linex = [i for i in range(1050, 1550, 50)]
-sun_liney = [j for j in range(155, 655, 50)]
-
+rays = dict(shine='first')
 
 def rainbow_line(screen):
     rainbow = (red, orange, yellow, green, cyan, blue, purple)
@@ -164,7 +172,13 @@ def snowfall(screen, x_list=x_list, y_list=y_list, l_list=l_list, snowdriftx = [
 
 def sun(screen):
     pygame.draw.circle(screen, gold, (1050, 100), 50)
-    for i in range(9):
-        pygame.draw.line(screen, gold, [sun_linex[i], sun_liney[i]], [sun_linex[i], sun_liney[i]+30], 3)
 
+    if rays['shine'] == 'first':
+        for i in range(5):
+            pygame.draw.line(screen, gold, [first_sun_rays1x[i], first_sun_rays1y[i]], [first_sun_rays2x[i], first_sun_rays2y[i]], 3)
+        rays['shine'] = 'second'
+    elif rays['shine'] == 'second':
+        for i in range(5):
+            pygame.draw.line(screen, gold, [second_sun_rays1x[i], second_sun_rays1y[i]], [second_sun_rays2x[i], second_sun_rays2y[i]], 3)
+        rays['shine'] = 'first'
 
