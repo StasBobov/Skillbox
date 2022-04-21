@@ -48,11 +48,12 @@ while True:
     nature.draw_branches(screen, (350, 600), 35, 40)
     nature.rainbow_oval(screen, 745, 645, 800)
     nature.sun(screen)
+    print('оборот')
 
 
 
 
-    time.sleep(0.1)
+    time.sleep(0.2)
     pygame.display.update()
     clock.tick(60)
 

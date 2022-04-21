@@ -20,9 +20,15 @@ black = (0, 0, 0)
 lightskyblue = (135, 206, 250)
 
 N = 20
+# после первого запуска функции с модуля, переменные в модуле меняются, и будут разные при каждом вызове функции
+# работает только для изменяемых объектов
 x_list = [random.randint(0, 1200) for i in range(N)]
 y_list = [random.randint(0, 100) for j in range(N)]
 l_list = [random.randint(10, 30) for k in range(N)]
+
+sun_linex = [i for i in range(1050, 1550, 50)]
+sun_liney = [j for j in range(155, 655, 50)]
+
 
 def rainbow_line(screen):
     rainbow = (red, orange, yellow, green, cyan, blue, purple)
@@ -134,13 +140,16 @@ def snowfall(screen, x_list=x_list, y_list=y_list, l_list=l_list, snowdriftx = [
     for i in range(N):
         if y_list[i] >= 600 - l_list[i]:
             if 0 + l_list[i] <= x_list[i] <= 1200 - l_list[i]:
+                # добавляем в списки снежинки которые на земле, убирая их из основного списка
                 snowdriftx.append(x_list.pop(i))
                 snowdrifty.append(y_list.pop(i))
                 snowdriftl.append(l_list.pop(i))
+                # добавляем в основной список новые снежинки, вместо тех, что на земле
                 x_list.append(random.randint(0, 1200))
                 y_list.append(random.randint(0, 100))
                 l_list.append(random.randint(10, 30))
         else:
+            # те, что в воздухе - продолжают кружиться
             x_list[i] = x_list[i] * random.randint(9, 11) / 10
             y_list[i] = y_list[i] + 10
 
@@ -148,10 +157,14 @@ def snowfall(screen, x_list=x_list, y_list=y_list, l_list=l_list, snowdriftx = [
         for j in range(len(snowdriftx)):
             snowflake(screen, center=(snowdriftx[j], snowdrifty[j]), length=snowdriftl[j])
 
-        if x_list == True:
-            snowfall(screen, x_list, y_list, l_list, snowdriftx, snowdrifty, snowdriftl)
+        # if x_list == True:
+        #     # snowfall(screen, x_list, y_list, l_list, snowdriftx, snowdrifty, snowdriftl)
+        #     print('Зашли в себя')
+
 
 def sun(screen):
     pygame.draw.circle(screen, gold, (1050, 100), 50)
+    for i in range(9):
+        pygame.draw.line(screen, gold, [sun_linex[i], sun_liney[i]], [sun_linex[i], sun_liney[i]+30], 3)
 
 
