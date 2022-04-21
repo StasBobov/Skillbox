@@ -18,8 +18,6 @@
 # пример см. lesson_005/results/04_painting.jpg
 # Приправить своей фантазией по вкусу (коты? коровы? люди? трактор? что придумается)
 
-# TODO здесь ваш код
-
 import pygame
 import sys
 from village import nature, house
