@@ -1,7 +1,8 @@
 
 from random import randint
 
-correct_number = ''
+
+correct_number = '6715'
 
 def make_number():
     global correct_number
@@ -13,7 +14,17 @@ def make_number():
 
 
 def test_number(if_number):
-    pass
+    number = if_number
+    result = dict(bulls=0, cows=0)
+    for i in range(4): # проходим по строке через индексы
+        is_in = correct_number.find(number[i]) # индекс первого вхождения буквы в строке current_number
+        if is_in == i:
+            result['bulls'] += 1
+        elif is_in != -1:
+            result['cows'] += 1
+        else:
+            pass
+    return result
 
-make_number()
-print(correct_number)
+
+
