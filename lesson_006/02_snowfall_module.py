@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import simple_draw as sd
+
 
 # На основе кода из lesson_004/05_snowfall.py
 # сделать модуль snowfall.py в котором реализовать следующие функции
@@ -14,15 +14,31 @@ import simple_draw as sd
 # обращаясь ТОЛЬКО к функциям модуля snowfall
 
 # создать_снежинки(N)
+
+import pygame
+import snowfall
+import sys
+import time
+
+pygame.init()
+clock = pygame.time.Clock()
+screen = pygame.display.set_mode((1200, 600))
+
+
 while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+    snowfall.let_it_snow(screen, 15)
     #  нарисовать_снежинки_цветом(color=sd.background_color)
     #  сдвинуть_снежинки()
     #  нарисовать_снежинки_цветом(color)
     #  если есть номера_достигших_низа_экрана() то
     #       удалить_снежинки(номера)
     #       создать_снежинки(count)
-    sd.sleep(0.1)
-    if sd.user_want_exit():
-        break
+    time.sleep(0.1)
+    pygame.display.update()
+    clock.tick(60)
 
-sd.pause()
+
