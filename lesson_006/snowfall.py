@@ -5,7 +5,7 @@ import pygame
 lightskyblue = (135, 206, 250)
 white = (255, 255, 255)
 
-def snowflake(screen, center, length, color=white):
+def snowflake(screen, color, center, length):
     # Основные лучики
     pygame.draw.line(screen, color, (center[0] - length, center[1]), (center[0] + length, center[1]), 1)
     pygame.draw.line(screen, color, (center[0] - (length * 0.792), center[1] - (length * 0.792)),
@@ -48,7 +48,6 @@ def snowflake(screen, center, length, color=white):
     pygame.draw.line(screen, color, (center[0] + (length * 0.6), center[1] + (length * 0.6)),
                      (center[0] + (length * 0.85), center[1] + (length * 0.6)), 1)
 
-N = 20
 
 x_list = []
 y_list = []
@@ -58,7 +57,7 @@ snowdrifty = []
 snowdriftl = []
 
 
-def let_it_snow(screen, N):
+def let_it_snow(screen, N, color):
     screen.fill(lightskyblue)
     global x_list, y_list, l_list, snowdriftx, snowdrifty, snowdriftl
     if len(x_list) == 0:
@@ -70,7 +69,7 @@ def let_it_snow(screen, N):
         x = x_list[i]
         y = y_list[i]
         l = l_list[i]
-        snowflake(screen, center=(x, y), length=l)
+        snowflake(screen, color, center=(x, y), length=l)
 
     for i in range(N):
         if y_list[i] >= 600 - l_list[i]:
@@ -90,4 +89,4 @@ def let_it_snow(screen, N):
 
 
         for j in range(len(snowdriftx)):
-            snowflake(screen, center=(snowdriftx[j], snowdrifty[j]), length=snowdriftl[j])
+            snowflake(screen, color, center=(snowdriftx[j], snowdrifty[j]), length=snowdriftl[j])

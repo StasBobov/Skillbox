@@ -19,18 +19,42 @@ import pygame
 import snowfall
 import sys
 import time
+from termcolor import cprint, colored
+
+colors = {}
+colors = {1: (255, 0, 0), 2: (255, 165, 0), 3: (255, 255, 0), 4: (0, 128, 0), 5: (0, 255, 255), 6: (0, 0, 255),
+          7: (128, 0, 128), 8: (255, 255, 255), 9: (255, 215, 0), 10: (0, 0, 0)}
+
+
+white = (255, 255, 255)
+
+gold = (255, 215, 0)
+black = (0, 0, 0)
+
+
+program_color = 'blue'
+
+
+
+cprint('ДАВАЙ НАРИСУЕМ СНЕГОПАД! \n', color=program_color)
+time.sleep(1)
+count = input(colored('Сколько снежинок будем рисовать? \n ', color=program_color))
+time.sleep(1)
+snow_color = input(colored('Какого цвета будут снежинки? \n 1 - Красный \n 2 - Оранжевый \n 3 - Жёлтый \n 4 - Зелёный \n 5 - Голубой \n'
+       '6 - Синий \n 7 - Фиолетовый \n 8 - Белый \n 9 - Золотой \n 10 - Чёрный \n', color=program_color))
+
 
 pygame.init()
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((1200, 600))
-
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-    snowfall.let_it_snow(screen, 15)
+
+    snowfall.let_it_snow(screen, int(count), color=colors[int(snow_color)])
     #  нарисовать_снежинки_цветом(color=sd.background_color)
     #  сдвинуть_снежинки()
     #  нарисовать_снежинки_цветом(color)
