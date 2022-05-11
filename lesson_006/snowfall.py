@@ -48,17 +48,24 @@ def snowflake(screen, center, length, color=white):
     pygame.draw.line(screen, color, (center[0] + (length * 0.6), center[1] + (length * 0.6)),
                      (center[0] + (length * 0.85), center[1] + (length * 0.6)), 1)
 
-c = ['hi']
+N = 20
 
-def let_it_snow(screen, N,  snowdriftx = [], snowdrifty = [], snowdriftl = [],):
+x_list = []
+y_list = []
+l_list = []
+snowdriftx = []
+snowdrifty = []
+snowdriftl = []
+
+
+def let_it_snow(screen, N):
     screen.fill(lightskyblue)
-    global x_list
-
-    if len(c) == 1:
-        x_list = [randint(0, 1200) for i in range(N)]
-        y_list = [randint(0, 100) for j in range(N)]
-        l_list = [randint(10, 30) for k in range(N)]
-        c.append('hello')
+    global x_list, y_list, l_list, snowdriftx, snowdrifty, snowdriftl
+    if len(x_list) == 0:
+        if len(l_list) == 0:
+            x_list = [randint(0, 1200) for i in range(N)]
+            y_list = [randint(0, 100) for j in range(N)]
+            l_list = [randint(10, 30) for k in range(N)]
     for i in range(N):
         x = x_list[i]
         y = y_list[i]
