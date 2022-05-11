@@ -53,11 +53,16 @@ N = 20
 x_list = []
 y_list = []
 l_list = []
+snowdriftx = []
+snowdrifty = []
+snowdriftl = []
 
-def let_it_snow(screen, N, x_list=x_list, y_list=y_list, l_list=l_list, snowdriftx = [], snowdrifty = [], snowdriftl = [],):
+
+def let_it_snow(screen, N):
     screen.fill(lightskyblue)
-    if x_list == False:
-        if l_list == False:
+    global x_list, y_list, l_list, snowdriftx, snowdrifty, snowdriftl
+    if len(x_list) == 0:
+        if len(l_list) == 0:
             x_list = [randint(0, 1200) for i in range(N)]
             y_list = [randint(0, 100) for j in range(N)]
             l_list = [randint(10, 30) for k in range(N)]
