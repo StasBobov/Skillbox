@@ -53,6 +53,14 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                snowfall.move('left', screen, color=colors[int(snow_color)])
+            if event.key == pygame.K_RIGHT:
+                snowfall.move('right', screen, color=colors[int(snow_color)])
+            if event.key == pygame.K_DOWN:
+                snowfall.move('down', screen, color=colors[int(snow_color)])
+
 
     snowfall.let_it_snow(screen, int(count), color=colors[int(snow_color)])
     #  нарисовать_снежинки_цветом(color=sd.background_color)

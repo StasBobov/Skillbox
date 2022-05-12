@@ -71,22 +71,40 @@ def let_it_snow(screen, N, color):
         l = l_list[i]
         snowflake(screen, color, center=(x, y), length=l)
 
-    for i in range(N):
-        if y_list[i] >= 600 - l_list[i]:
-            if 0 + l_list[i] <= x_list[i] <= 1200 - l_list[i]:
-                # добавляем в списки снежинки которые на земле, убирая их из основного списка
-                snowdriftx.append(x_list.pop(i))
-                snowdrifty.append(y_list.pop(i))
-                snowdriftl.append(l_list.pop(i))
-                # добавляем в основной список новые снежинки, вместо тех, что на земле
-                x_list.append(randint(0, 1200))
-                y_list.append(randint(0, 100))
-                l_list.append(randint(10, 30))
-        else:
-            # те, что в воздухе - продолжают кружиться
-            x_list[i] = x_list[i] * randint(9, 11) / 10
+    # for i in range(N):
+    #     if y_list[i] >= 600 - l_list[i]:
+    #         if 0 + l_list[i] <= x_list[i] <= 1200 - l_list[i]:
+    #             # добавляем в списки снежинки которые на земле, убирая их из основного списка
+    #             snowdriftx.append(x_list.pop(i))
+    #             snowdrifty.append(y_list.pop(i))
+    #             snowdriftl.append(l_list.pop(i))
+    #             # добавляем в основной список новые снежинки, вместо тех, что на земле
+    #             x_list.append(randint(0, 1200))
+    #             y_list.append(randint(0, 100))
+    #             l_list.append(randint(10, 30))
+    #     else:
+    #         # те, что в воздухе - продолжают кружиться
+    #         x_list[i] = x_list[i] * randint(9, 11) / 10
+    #         y_list[i] = y_list[i] + 10
+    #
+    #
+    #     for j in range(len(snowdriftx)):
+    #         snowflake(screen, color, center=(snowdriftx[j], snowdrifty[j]), length=snowdriftl[j])
+
+def move(direction, screen, color):
+    global x_list, y_list, l_list, snowdriftx, snowdrifty, snowdriftl
+    if direction == 'left':
+        for i in range(len(x_list)):
+            x_list[i] = x_list[i] - 10
+            snowflake(screen, color, center=(x_list[i], y_list[i]), length=l_list[i])
+    if direction == 'right':
+        for i in range(len(x_list)):
+            x_list[i] = x_list[i] + 10
+            snowflake(screen, color, center=(x_list[i], y_list[i]), length=l_list[i])
+    if direction == 'down':
+        for i in range(len(y_list)):
             y_list[i] = y_list[i] + 10
+            snowflake(screen, color, center=(x_list[i], y_list[i]), length=l_list[i])
 
 
-        for j in range(len(snowdriftx)):
-            snowflake(screen, color, center=(snowdriftx[j], snowdrifty[j]), length=snowdriftl[j])
+
