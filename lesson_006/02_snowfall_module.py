@@ -63,6 +63,7 @@ while True:
 
 
     snowfall.let_it_snow(screen, int(count), color=colors[int(snow_color)])
+    snowfall.under()
     #  нарисовать_снежинки_цветом(color=sd.background_color)
     #  сдвинуть_снежинки()
     #  нарисовать_снежинки_цветом(color)

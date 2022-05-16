@@ -1,11 +1,14 @@
 
 from random import randint
 import pygame
+from termcolor import cprint, colored
 
 lightskyblue = (135, 206, 250)
 white = (255, 255, 255)
+blue = 'blue'
 
 def snowflake(screen, color, center, length):
+    '''Отрисовка снежинки'''
     # Основные лучики
     pygame.draw.line(screen, color, (center[0] - length, center[1]), (center[0] + length, center[1]), 1)
     pygame.draw.line(screen, color, (center[0] - (length * 0.792), center[1] - (length * 0.792)),
@@ -55,6 +58,7 @@ l_list = []
 snowdriftx = []
 snowdrifty = []
 snowdriftl = []
+falling_snowflakes = []
 
 
 def let_it_snow(screen, N, color):
@@ -92,6 +96,7 @@ def let_it_snow(screen, N, color):
     #         snowflake(screen, color, center=(snowdriftx[j], snowdrifty[j]), length=snowdriftl[j])
 
 def move(direction, screen, color):
+    '''Движение снежинки'''
     global x_list, y_list, l_list, snowdriftx, snowdrifty, snowdriftl
     if direction == 'left':
         for i in range(len(x_list)):
@@ -105,6 +110,34 @@ def move(direction, screen, color):
         for i in range(len(y_list)):
             y_list[i] = y_list[i] + 10
             snowflake(screen, color, center=(x_list[i], y_list[i]), length=l_list[i])
+
+def under():
+    global y_list, falling_snowflakes
+    for i in range(len(y_list)):
+        if y_list[i] >= 600:
+            if i not in falling_snowflakes:
+                falling_snowflakes.append(i)
+                action()
+
+def action():
+    global y_list, falling_snowflakes
+    act = input(colored('У нас есть упавшие снежинки, что будем делать? \n 1 - удалить снежинки \n '
+                        '2 - добавить ещё снежинок \n 3 - и так сойдёт... ', color=blue))
+    if act == '1':
+        for i in falling_snowflakes:
+            y_list.remove(i)
+        falling_snowflakes.clear()
+    elif act == '2':
+        # TODO Как-то добавить снежинки
+        pass
+
+
+
+
+
+
+
+
 
 
 
