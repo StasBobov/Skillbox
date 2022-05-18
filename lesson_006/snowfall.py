@@ -53,7 +53,7 @@ def snowflake(screen, color, center, length):
 
 
 x_list = []
-y_list = []
+y_list = [629, 576, 595, 611, 629, 568, 572, 579, 600, 603]
 l_list = []
 snowdriftx = []
 snowdrifty = []
@@ -117,22 +117,23 @@ def under():
         if y_list[i] >= 600:
             if i not in falling_snowflakes:
                 falling_snowflakes.append(i)
-                action()
+    action()
 
 def action():
     global y_list, falling_snowflakes
     act = input(colored('У нас есть упавшие снежинки, что будем делать? \n 1 - удалить снежинки \n '
-                        '2 - добавить ещё снежинок \n 3 - и так сойдёт... ', color=blue))
+                        '2 - добавить ещё снежинок \n 3 - и так сойдёт...\n ', color=blue))
     if act == '1':
+        # TODO Как-то удалить снежинки
         for i in falling_snowflakes:
-            y_list.remove(i)
+            y_list.pop(i)
         falling_snowflakes.clear()
     elif act == '2':
         # TODO Как-то добавить снежинки
         pass
 
 
-
+under()
 
 
 
