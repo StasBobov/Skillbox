@@ -41,7 +41,6 @@ def roof(screen, x, y):
 
 
 def smile_see(screen, j, smile_eyes=smile_eyes):
-    print(smile_eyes)
     if smile_eyes.get('eyes') == 'open':
         # лицо
         pygame.draw.circle(screen, fuchsia, (j[0], j[1]), 25)

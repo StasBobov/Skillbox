@@ -164,9 +164,6 @@ def snowfall(screen, x_list=x_list, y_list=y_list, l_list=l_list, snowdriftx = [
         for j in range(len(snowdriftx)):
             snowflake(screen, center=(snowdriftx[j], snowdrifty[j]), length=snowdriftl[j])
 
-        # if x_list == True:
-        #     # snowfall(screen, x_list, y_list, l_list, snowdriftx, snowdrifty, snowdriftl)
-        #     print('Зашли в себя')
 
 
 def sun(screen):

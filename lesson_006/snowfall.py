@@ -52,25 +52,39 @@ def snowflake(screen, color, center, length):
                      (center[0] + (length * 0.85), center[1] + (length * 0.6)), 1)
 
 
+# x_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+# y_list = [629, 576, 595, 611, 629, 568, 572, 579, 600, 603]
+# l_list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+# Координаты и размеры снежинок в воздухе
 x_list = []
-y_list = [629, 576, 595, 611, 629, 568, 572, 579, 600, 603]
+y_list = []
 l_list = []
+# Координаты и размеры снежинок на полу
 snowdriftx = []
 snowdrifty = []
 snowdriftl = []
-falling_snowflakes = {}
-a = 0
+falling_snowflakes = [] # Список номеров снежинок на полу
+a = 0 # Счётчик для запуска действий когда снежинка(и) на полу
+b = 0 # Счётчик для первого запуска создания снежинок
+new = 0
 
 
 def let_it_snow(screen, N, color):
     screen.fill(lightskyblue)
-    global x_list, y_list, l_list, snowdriftx, snowdrifty, snowdriftl
-    if len(x_list) == 0:
-        if len(l_list) == 0:
-            x_list = [randint(0, 1200) for i in range(N)]
-            y_list = [randint(0, 100) for j in range(N)]
-            l_list = [randint(10, 30) for k in range(N)]
-    for i in range(N):
+    global x_list, y_list, l_list, snowdriftx, snowdrifty, snowdriftl, b, new
+    if b == 0:
+        x_list = [randint(0, 1200) for i in range(N)]
+        y_list = [randint(0, 100) for j in range(N)]
+        l_list = [randint(10, 30) for k in range(N)]
+        b = 1
+    elif b == 2:
+        for i in range(new):
+            x_list.append(randint(0, 1200))
+            y_list.append(randint(0, 100))
+            l_list.append(randint(10, 30))
+        new = 0
+        b = 1
+    for i in range(len(x_list)):
         x = x_list[i]
         y = y_list[i]
         l = l_list[i]
@@ -114,35 +128,41 @@ def move(direction, screen, color):
 
 def under():
     '''Проверка на нахождение снежинки на полу'''
-    global y_list, falling_snowflakes, a
+    global y_list, falling_snowflakes, a, snowdriftx, snowdrifty, snowdriftl
     for i in range(len(y_list)):
         if y_list[i] >= 600:
-            if i not in falling_snowflakes:
-                falling_snowflakes[i] = y_list[i]
+            if i+1 not in falling_snowflakes:
+                snowdriftx.append(x_list[i])
+                snowdrifty.append(y_list[i])
+                snowdriftl.append(l_list[i])
+                falling_snowflakes.append(i+1)
                 a = 1
     if a == 1:
         action()
 
 def action():
     '''Действия с упавшими снежниками'''
-    global y_list, falling_snowflakes, a
-    f_s = list(falling_snowflakes.keys())
-    cprint("У нас есть упавшие снежинки {0}".format(f_s), color=blue)
+    global x_list,y_list, l_list, falling_snowflakes, a, b, new
+    # f_s = list(falling_snowflakes.keys())
+    cprint("У нас есть упавшие снежинки {0}".format(falling_snowflakes), color=blue)
     act = input(colored(' Что будем делать? \n 1 - удалить снежинки \n '
                         '2 - добавить ещё снежинок \n 3 - и так сойдёт...\n ', color=blue))
     if act == '1':
-        print(falling_snowflakes)
-        # TODO Как-то удалить снежинки
-        # for i in falling_snowflakes:
-        #     y_list.pop(i)
-        # falling_snowflakes.clear()
+        for i in snowdriftx:
+            x_list.remove(i)
+        for j in snowdrifty:
+            y_list.remove(j)
+        for k in snowdriftl:
+            l_list.remove(k)
+        snowdriftx.clear(), snowdrifty.clear(), snowdriftl.clear(), falling_snowflakes.clear()
     elif act == '2':
-        # TODO Как-то добавить снежинки
-        pass
+        b = 2
+        new = len(falling_snowflakes)
     a = 0
 
 
-under()
+#
+# under()
 
 
 
