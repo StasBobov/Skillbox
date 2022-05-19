@@ -58,7 +58,8 @@ l_list = []
 snowdriftx = []
 snowdrifty = []
 snowdriftl = []
-falling_snowflakes = []
+falling_snowflakes = {}
+a = 0
 
 
 def let_it_snow(screen, N, color):
@@ -112,25 +113,33 @@ def move(direction, screen, color):
             snowflake(screen, color, center=(x_list[i], y_list[i]), length=l_list[i])
 
 def under():
-    global y_list, falling_snowflakes
+    '''Проверка на нахождение снежинки на полу'''
+    global y_list, falling_snowflakes, a
     for i in range(len(y_list)):
         if y_list[i] >= 600:
             if i not in falling_snowflakes:
-                falling_snowflakes.append(i)
-    action()
+                falling_snowflakes[i] = y_list[i]
+                a = 1
+    if a == 1:
+        action()
 
 def action():
-    global y_list, falling_snowflakes
-    act = input(colored('У нас есть упавшие снежинки, что будем делать? \n 1 - удалить снежинки \n '
+    '''Действия с упавшими снежниками'''
+    global y_list, falling_snowflakes, a
+    f_s = list(falling_snowflakes.keys())
+    cprint("У нас есть упавшие снежинки {0}".format(f_s), color=blue)
+    act = input(colored(' Что будем делать? \n 1 - удалить снежинки \n '
                         '2 - добавить ещё снежинок \n 3 - и так сойдёт...\n ', color=blue))
     if act == '1':
+        print(falling_snowflakes)
         # TODO Как-то удалить снежинки
-        for i in falling_snowflakes:
-            y_list.pop(i)
-        falling_snowflakes.clear()
+        # for i in falling_snowflakes:
+        #     y_list.pop(i)
+        # falling_snowflakes.clear()
     elif act == '2':
         # TODO Как-то добавить снежинки
         pass
+    a = 0
 
 
 under()
