@@ -18,6 +18,7 @@ black = (0, 0, 0)
 colors = {1: (255, 0, 0), 2: (255, 165, 0), 3: (255, 255, 0), 4: (0, 128, 0), 5: (0, 255, 255), 6: (0, 0, 255),
           7: (128, 0, 128), 8: (255, 255, 255), 9: (255, 215, 0), 10: (0, 0, 0)}
 clock = pygame.time.Clock()
+direction = 0
 
 class Snowflake:
 
@@ -72,39 +73,65 @@ class Snowflake:
                          (self.center[0] + (self.length * 0.85), self.center[1] + (self.length * 0.6)), 1)
 
     def move(self, dir):
-        screen.fill(black)
-        if dir == 'left':
-            self.center[0] -= 20
-        if dir == 'right':
-            self.center[0] += 20
-        if dir == 'down':
-            self.center[1] += 20
+        if dir != 0:
+            if dir == 'left':
+                self.center[0] -= 20
+            if dir == 'right':
+                self.center[0] += 20
+            if dir == 'down':
+                self.center[1] += 20
+
+    def is_down(self):
+        if self.center[1] >= 600 - self.length:
+            we_are_fall.append(1)
+
 
 
     # TODO здесь ваш код
-
+# Функция делает список со снежинками
 def get_flakes(count):
     flake = []
     for i in range(count):
         flake.append(Snowflake(screen=screen, center=[randint(0, 1200), randint(0, 100)], length=randint(10, 30), color= colors[randint(1, 10)]))
     return flake
 
+def get_fallen_flakes(on_the_ground):
+    return len(on_the_ground)
+
+def append_flakes(count):
+    global flakes, we_are_fall
+    for i in range(count):
+        flakes.append(Snowflake(screen=screen, center=[randint(0, 1200), randint(0, 100)], length=randint(10, 30),
+                               color=colors[randint(1, 10)]))
+    we_are_fall = []
+
+
+
+we_are_fall = []
 flakes = get_flakes(count=20)
-flake = Snowflake(screen=screen, center=[500, 50], length=40, color=gold)
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            for flake in flakes:
-                if event.key == pygame.K_LEFT:
-                    flake.move('left')
-                if event.key == pygame.K_RIGHT:
-                    flake.move('right')
-                if event.key == pygame.K_DOWN:
-                    flake.move('down')
-    flake.draw()
+            if event.key == pygame.K_LEFT:
+                direction = 'left'
+            if event.key == pygame.K_RIGHT:
+                direction = 'right'
+            if event.key == pygame.K_DOWN:
+                direction = 'down'
+        else:
+            direction = 0
+    screen.fill(black)
+    for flake in flakes:
+        flake.is_down()
+        flake.move(direction)
+        flake.draw()
+    fallen_flakes = get_fallen_flakes(we_are_fall)
+    print(fallen_flakes)
+    if fallen_flakes:
+        append_flakes(count=fallen_flakes)
     time.sleep(0.1)
     pygame.display.update()
     clock.tick(60)
