@@ -19,6 +19,8 @@ colors = {1: (255, 0, 0), 2: (255, 165, 0), 3: (255, 255, 0), 4: (0, 128, 0), 5:
           7: (128, 0, 128), 8: (255, 255, 255), 9: (255, 215, 0), 10: (0, 0, 0)}
 clock = pygame.time.Clock()
 direction = 0
+we_are_fall = []
+forget_about_us = []
 
 class Snowflake:
 
@@ -75,19 +77,20 @@ class Snowflake:
     def move(self, dir):
         if dir != 0:
             if dir == 'left':
-                self.center[0] -= 20
+                self.center[0] -= 55
             if dir == 'right':
-                self.center[0] += 20
+                self.center[0] += 5
             if dir == 'down':
-                self.center[1] += 20
+                self.center[1] += 5
 
     def is_down(self):
-        if self.center[1] >= 600 - self.length:
+        if self.center[1] >= 600 - self.length*1:
+            forget_about_us.append(self)
+            flakes.remove(self)
             we_are_fall.append(1)
+            print('Уже упало {0} снежинок'.format(len(forget_about_us)))
 
 
-
-    # TODO здесь ваш код
 # Функция делает список со снежинками
 def get_flakes(count):
     flake = []
@@ -95,19 +98,14 @@ def get_flakes(count):
         flake.append(Snowflake(screen=screen, center=[randint(0, 1200), randint(0, 100)], length=randint(10, 30), color= colors[randint(1, 10)]))
     return flake
 
-def get_fallen_flakes(on_the_ground):
-    return len(on_the_ground)
-
 def append_flakes(count):
     global flakes, we_are_fall
     for i in range(count):
         flakes.append(Snowflake(screen=screen, center=[randint(0, 1200), randint(0, 100)], length=randint(10, 30),
                                color=colors[randint(1, 10)]))
-    we_are_fall = []
 
 
 
-we_are_fall = []
 flakes = get_flakes(count=20)
 while True:
     for event in pygame.event.get():
@@ -128,10 +126,11 @@ while True:
         flake.is_down()
         flake.move(direction)
         flake.draw()
-    fallen_flakes = get_fallen_flakes(we_are_fall)
-    print(fallen_flakes)
-    if fallen_flakes:
-        append_flakes(count=fallen_flakes)
+    for flake in forget_about_us:
+        flake.draw()
+    if we_are_fall != []:
+        append_flakes(count=len(we_are_fall))
+    we_are_fall = []
     time.sleep(0.1)
     pygame.display.update()
     clock.tick(60)
