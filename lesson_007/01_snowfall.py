@@ -77,9 +77,9 @@ class Snowflake:
     def move(self, dir):
         if dir != 0:
             if dir == 'left':
-                self.center[0] -= 55
+                self.center[0] -= 10
             if dir == 'right':
-                self.center[0] += 5
+                self.center[0] += 10
             if dir == 'down':
                 self.center[1] += 5
 

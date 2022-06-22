@@ -21,6 +21,137 @@
 
 # TODO здесь ваш код
 
+class Water:
+
+    def __init__(self):
+        pass
+
+    def __str__(self):
+        return 'Вода'
+
+    def __add__(self, other):
+        new_obj = None
+        print(type(other))
+        if other == 'Воздух':
+            new_obj = Storm()
+        elif other == 'Огонь':
+            new_obj = Steam()
+        elif other == 'Земля':
+            new_obj = Dirt()
+        return new_obj
+
+class Air:
+
+    def __init__(self):
+        pass
+
+    def __add__(self, other):
+        new_obj = None
+        if other == 'Вода':
+            new_obj = Storm()
+        elif other == 'Огонь':
+            new_obj = Lightning()
+        elif other == 'Земля':
+            new_obj = Dust()
+        return new_obj
+
+    def __str__(self):
+        return 'Воздух'
+
+
+class Fire:
+
+    def __init__(self):
+        pass
+
+    def __add__(self, other):
+        new_obj = None
+        if other == 'Воздух':
+            new_obj = Lightning()
+        elif other == 'Вода':
+            new_obj = Steam()
+        elif other == 'Земля':
+            new_obj = Lava()
+        return new_obj
+
+    def __str__(self):
+        return 'Огонь'
+
+class Earth:
+
+    def __init__(self):
+        pass
+
+    def __add__(self, other):
+        new_obj = None
+        if other == 'Вода':
+            new_obj = Dirt()
+        elif other == 'Огонь':
+            new_obj = Lava()
+        elif other == 'Воздух':
+            new_obj = Dust()
+        return new_obj
+
+    def __str__(self):
+        return 'Земля'
+
+
+class Storm:
+
+    def __init__(self):
+        pass
+
+    def __str__(self):
+        return 'Шторм'
+
+
+class Steam:
+
+    def __init__(self):
+        pass
+
+    def __str__(self):
+        return 'Пар'
+
+class Dirt:
+
+    def __init__(self):
+        pass
+
+    def __str__(self):
+        return 'Грязь'
+
+
+class Lightning:
+
+    def __init__(self):
+        pass
+
+    def __str__(self):
+        return 'Молния'
+
+
+class Dust:
+
+    def __init__(self):
+        pass
+
+    def __str__(self):
+        return 'Пыль'
+
+
+class Lava:
+
+    def __init__(self):
+        pass
+
+    def __str__(self):
+        return 'Лава'
+
+print(Water(), '+', Air(), '=', Water() + Air())
+print(Fire(), '+', Air(), '=', Fire() + Air())
+
+
 # Усложненное задание (делать по желанию)
 # Добавить еще элемент в игру.
 # Придумать что будет при сложении существующих элементов с новым.
