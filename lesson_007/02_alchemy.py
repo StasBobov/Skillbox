@@ -19,7 +19,6 @@
 #   print(Water(), '+', Air(), '=', Water() + Air())
 #   print(Fire(), '+', Air(), '=', Fire() + Air())
 
-# TODO здесь ваш код
 
 class Water:
 
