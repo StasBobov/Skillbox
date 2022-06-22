@@ -31,12 +31,11 @@ class Water:
 
     def __add__(self, other):
         new_obj = None
-        print(type(other))
-        if other == 'Воздух':
+        if str(other) == 'Воздух':
             new_obj = Storm()
-        elif other == 'Огонь':
+        elif str(other) == 'Огонь':
             new_obj = Steam()
-        elif other == 'Земля':
+        elif str(other) == 'Земля':
             new_obj = Dirt()
         return new_obj
 
@@ -47,11 +46,11 @@ class Air:
 
     def __add__(self, other):
         new_obj = None
-        if other == 'Вода':
+        if str(other) == 'Вода':
             new_obj = Storm()
-        elif other == 'Огонь':
+        elif str(other) == 'Огонь':
             new_obj = Lightning()
-        elif other == 'Земля':
+        elif str(other) == 'Земля':
             new_obj = Dust()
         return new_obj
 
@@ -66,11 +65,11 @@ class Fire:
 
     def __add__(self, other):
         new_obj = None
-        if other == 'Воздух':
+        if str(other) == 'Воздух':
             new_obj = Lightning()
-        elif other == 'Вода':
+        elif str(other) == 'Вода':
             new_obj = Steam()
-        elif other == 'Земля':
+        elif str(other) == 'Земля':
             new_obj = Lava()
         return new_obj
 
@@ -84,11 +83,11 @@ class Earth:
 
     def __add__(self, other):
         new_obj = None
-        if other == 'Вода':
+        if str(other) == 'Вода':
             new_obj = Dirt()
-        elif other == 'Огонь':
+        elif str(other) == 'Огонь':
             new_obj = Lava()
-        elif other == 'Воздух':
+        elif str(other) == 'Воздух':
             new_obj = Dust()
         return new_obj
 
@@ -127,6 +126,12 @@ class Lightning:
     def __init__(self):
         pass
 
+    def __add__(self, other):
+        new_obj = None
+        if str(other) == 'Дерево':
+            new_obj = Fire()
+        return new_obj
+
     def __str__(self):
         return 'Молния'
 
@@ -148,8 +153,48 @@ class Lava:
     def __str__(self):
         return 'Лава'
 
+class Boom:
+
+    def __init__(self):
+        pass
+
+    def __str__(self):
+        return 'Бум!'
+
+class Wood:
+
+    def __init__(self):
+        pass
+
+    def __add__(self, other):
+        new_obj = None
+        if str(other) == 'Мыло':
+            new_obj = Boom()
+        elif str(other) == 'Молния':
+            new_obj = Boom()
+        return new_obj
+
+    def __str__(self):
+        return 'Дерево'
+
+class Soap:
+
+    def __init__(self):
+        pass
+
+    def __add__(self, other):
+        new_obj = None
+        if str(other) == 'Дерево':
+            new_obj = Boom()
+        return new_obj
+
+    def __str__(self):
+        return 'Мыло'
+
 print(Water(), '+', Air(), '=', Water() + Air())
-print(Fire(), '+', Air(), '=', Fire() + Air())
+print(Fire(), '+', Water(), '=', Fire() + Water())
+print(Wood(), '+', Soap(), '=', Soap() + Wood())
+print(Wood(), '+', Lightning(), '=', Lightning() + Wood())
 
 
 # Усложненное задание (делать по желанию)
