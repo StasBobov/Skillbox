@@ -85,7 +85,7 @@ class Man:
             if self.house.food >= 60:
                 self.eat(30)
             else:
-                self.eat(self.house.food / 2)
+                self.eat(self.house.food / 3)
             return False
         else:
             return True
@@ -97,7 +97,7 @@ class Husband(Man):
         super().__init__(name)
 
     def __str__(self):
-        return super().__str__() + ' это Серёга он сыт на {}, и счастлив на {}'.format(self.satiety, self. happiness)
+        return super().__str__() + ' это {}, он сыт на {}, и счастлив на {}'.format(self.name, self.satiety, self. happiness)
 
     def act(self):
         if self.live == True:
@@ -136,7 +136,7 @@ class Wife(Man):
         super().__init__(name)
 
     def __str__(self):
-        return super().__str__() + ' это Маша она сыта на {}, и счастлива на {}'.format(self.satiety, self.happiness)
+        return super().__str__() + ' это {}, она сыта на {}, и счастлива на {}'.format(self.name, self.satiety, self.happiness)
 
     def act(self):
         if self.live == True:
@@ -192,17 +192,7 @@ serge.house = home
 masha.house = home
 print(serge)
 
-for day in range(365):
-    cprint('================== День {} =================='.format(day), color='red')
-    serge.act()
-    masha.act()
-    home.act()
-    cprint(serge, color='cyan')
-    cprint(masha, color='cyan')
-    cprint(home, color='cyan')
-cprint('За год Серёга заработал {} $, молодец Серёга!'.format(serge.total_income), color='red')
-cprint('За год Серёга с Машей поели {} еды, и совсем не поправились!'.format(home.total_eat), color='red')
-cprint('За Маша купила {} шуб, потому-что шуб много не бывает!'.format(Wife.coat), color='red')Nhb
+
 
 ######################################################## Часть вторая
 #
@@ -258,24 +248,59 @@ class Cat:
 # отличия от взрослых - кушает максимум 10 единиц еды,
 # степень счастья  - не меняется, всегда ==100 ;)
 
-class Child:
+class Child(Man):
 
-    def __init__(self):
-        pass
+    def __init__(self, name):
+        super().__init__(name)
 
     def __str__(self):
-        return super().__str__()
+        return super().__str__() + ' это пиздюк, зовут его {} он сыт на {}, и счастлив на {}'.format(self.name, self.satiety, self. happiness)
 
     def act(self):
-        pass
+        if self.live == True:
+            if self.satiety < 0:
+                cprint('{} помер писдюк'.format(self.name), color='red')
+                self.live = False
+                return
+            if self.satiety <= 20:
+                if self.house.food >= 30:
+                    self.eat(10)
+                else:
+                    self.eat(self.house.food / 3)
+            else:
+                what_would_i_do = random.randint(1, 2)
+                if what_would_i_do == 1:
+                    if self.house.food >= 30:
+                        self.eat(10)
+                    else:
+                        self.eat(self.house.food / 3)
+                else:
+                    self.sleep()
 
-    def eat(self):
-        pass
+    def eat(self, meal):
+        super().eat(meal)
+
 
     def sleep(self):
-        pass
+        self.satiety -= 10
+        cprint('{} поспал...опять...'.format(self.name), color='green')
 
+dazdranagon = Child('Даздранагон')
+dazdranagon.house = home
 
+for day in range(365):
+    cprint('================== День {} =================='.format(day), color='red')
+    serge.act()
+    masha.act()
+    dazdranagon.act()
+    home.act()
+    cprint(serge, color='cyan')
+    cprint(masha, color='cyan')
+    cprint(dazdranagon, color='cyan')
+    cprint(home, color='cyan')
+cprint('За год Серёга заработал {} $, молодец Серёга!'.format(serge.total_income), color='red')
+cprint('За год Серёга с Машей поели {} еды, и совсем не поправились!'.format(home.total_eat), color='red')
+cprint('За Маша купила {} шуб, потому-что шуб много не бывает!'.format(Wife.coat), color='red')
 # TODO после реализации второй части - отдать на проверку учителем две ветки
 
 
