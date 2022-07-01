@@ -73,9 +73,9 @@ class Man:
 
 
     def eat(self, meal):
-        self.satiety += meal
-        self.house.food -= meal
-        self.house.total_eat += meal
+        self.satiety += round(meal)
+        self.house.food -= round(meal)
+        self.house.total_eat += round(meal)
         cprint('{} вкусненько поел(а)'.format(self.name), color='green')
 
     def tisk_the_cat(self):
@@ -295,19 +295,6 @@ class Cat:
 gilermo = Cat('Гильермо')
 gilermo.house = home
 
-for day in range(365):
-    cprint('================== День {} =================='.format(day), color='red')
-    serge.act()
-    masha.act()
-    gilermo.act()
-    home.act()
-    cprint(serge, color='cyan')
-    cprint(masha, color='cyan')
-    cprint(gilermo, color='cyan')
-    cprint(home, color='cyan')
-cprint('За год Серёга заработал {} $, молодец Серёга!'.format(serge.total_income), color='red')
-cprint('За год Серёга с Машей поели {} еды, и совсем не поправились!'.format(home.total_eat), color='red')
-cprint('За Маша купила {} шуб, потому-что шуб много не бывает!'.format(Wife.coat), color='red')
 ######################################################## Часть вторая бис
 #
 # После реализации первой части надо в ветке мастер продолжить работу над семьей - добавить ребенка
@@ -324,8 +311,6 @@ class Child(Man):
     def __init__(self, name):
         super().__init__(name)
 
-    def __str__(self):
-        return super().__str__() + ' это пиздюк, зовут его {} он сыт на {}, и счастлив на {}'.format(self.name, self.satiety, self. happiness)
 
     def act(self):
         if self.live == True:
@@ -363,10 +348,12 @@ for day in range(365):
     cprint('================== День {} =================='.format(day), color='red')
     serge.act()
     masha.act()
+    gilermo.act()
     dazdranagon.act()
     home.act()
     cprint(serge, color='cyan')
     cprint(masha, color='cyan')
+    cprint(gilermo, color='cyan')
     cprint(dazdranagon, color='cyan')
     cprint(home, color='cyan')
 cprint('За год Серёга заработал {} $, молодец Серёга!'.format(serge.total_income), color='red')
