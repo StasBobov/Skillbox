@@ -36,6 +36,7 @@ class Word_Docs_Statistic():
         self.file = file
         self.highstatistic = {}
         self.lowstatistic = {}
+
     def unzip(self):
         zfile = zipfile.ZipFile(self.file, 'r') # создали объект zipfile.ZipFile
         for file in zfile.namelist(): # для каждого файла в zfile производим распаковку
@@ -72,9 +73,22 @@ class Word_Docs_Statistic():
         self.bug_correct(self.lowstatistic)
         self.bug_correct(self.highstatistic)
         self.statistic = self.highstatistic + self.lowstatistic
-        print(self.highstatistic)
-        print(self.lowstatistic)
-        print(self.statistic)
+        self.statistic = dict(self.statistic)
+
+
+    def show_res(self):
+        dash = '-'
+        print(f'+{dash*9}+{dash*9}+')
+        print('|{0:^9}|{1:^9}|'.format('буква', 'частота'))
+        print(f'+{dash*9}+{dash*9}+')
+        sum = 0
+        for word, value in self.statistic.items():
+            print(f'|{word:^9}|{value:^9}|')
+            sum += value
+        print(f'+{dash*9}+{dash*9}+')
+        print('|{0:^9}|{1:^9}|'.format('ИТОГО', sum))
+        print(f'+{dash*9}+{dash*9}+')
+
 
     def bug_correct(self, lst):
         lletters = ['ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ',
@@ -96,6 +110,9 @@ class Word_Docs_Statistic():
                         lst.pop()
                         return
 
+class Word_Upper_Statistic(Word_Docs_Statistic):
+    pass
+
 
 
 
@@ -108,9 +125,10 @@ for dirpath, dirnames, filenames in os.walk(os.getcwd()):
         if name == 'voyna-i-mir.txt.zip':
             current_path = os.path.join(dirpath, name)
 
-war_and_peace = Word_Docs_Statistic(current_path)
-war_and_peace.read()
-war_and_peace.results()
+alpha_plus = Word_Docs_Statistic(current_path)
+alpha_plus.read()
+alpha_plus.results()
+alpha_plus.show_res()
 
 # После выполнения первого этапа нужно сделать упорядочивание статистики
 #  - по частоте по возрастанию
