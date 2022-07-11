@@ -21,7 +21,7 @@
 # Упорядочивание по частоте - по убыванию. Ширину таблицы подберите по своему вкусу
 # Требования к коду: он должен быть готовым к расширению функциональности. Делать сразу на классах.
 
-# TODO здесь ваш код
+
 import zipfile
 import os
 from sortedcontainers import SortedDict
@@ -68,12 +68,8 @@ class Word_Docs_Statistic():
     def results(self):
         hitems = self.highstatistic.items()
         litems = self.lowstatistic.items()
-        self.highstatistic = sorted(hitems)
-        self.lowstatistic = sorted(litems)
-        self.bug_correct(self.lowstatistic)
-        self.bug_correct(self.highstatistic)
-        self.statistic = self.highstatistic + self.lowstatistic
-        self.statistic = dict(self.statistic)
+        return hitems, litems
+
 
 
     def show_res(self):
@@ -111,11 +107,38 @@ class Word_Docs_Statistic():
                         return
 
 class Word_Upper_Statistic(Word_Docs_Statistic):
-    pass
 
+    def results(self):
+        hitems, litems = super().results()
+        self.highstatistic = sorted(hitems)
+        self.lowstatistic = sorted(litems)
+        self.bug_correct(self.lowstatistic)
+        self.bug_correct(self.highstatistic)
+        self.statistic = self.highstatistic + self.lowstatistic
+        self.statistic = dict(self.statistic)
 
+class Word_Lower_Statistic(Word_Docs_Statistic):
 
+    def results(self):
+        hitems, litems = super().results()
+        self.highstatistic = sorted(hitems)
+        self.lowstatistic = sorted(litems)
+        self.bug_correct(self.lowstatistic)
+        self.bug_correct(self.highstatistic)
+        self.statistic = self.highstatistic + self.lowstatistic
+        self.statistic = list(reversed(self.statistic))
+        self.statistic = dict(self.statistic)
 
+class Word_Frequence_Statistic(Word_Docs_Statistic):
+
+    def results(self):
+        self.highstatistic.update(self.lowstatistic)
+        sorted_values = sorted(self.highstatistic.values())
+        self.statistic = {}
+        for i in sorted_values:
+            for k in self.highstatistic.keys():
+                if self.highstatistic[k] == i:
+                    self.statistic[k] = self.highstatistic[k]
 
 
 
@@ -125,7 +148,7 @@ for dirpath, dirnames, filenames in os.walk(os.getcwd()):
         if name == 'voyna-i-mir.txt.zip':
             current_path = os.path.join(dirpath, name)
 
-alpha_plus = Word_Docs_Statistic(current_path)
+alpha_plus = Word_Frequence_Statistic(current_path)
 alpha_plus.read()
 alpha_plus.results()
 alpha_plus.show_res()
