@@ -59,23 +59,6 @@ class Analiz:
         with open('result.txt', mode='a') as newfile:
             newfile.write(string + ' ' + str(rep) + '\n')
 
-# class Hour_Analiz(Analiz):
-#
-#     def read(self):
-#         with open(self.file_name, 'r') as file:
-#             for line in file:
-#                 if (line[-4] + line[-3] + line[-2]) == 'NOK':
-#                     self.count(line[0:14] + ']')
-#
-# class Month_Analiz(Analiz):
-#
-#     def read(self):
-#         with open(self.file_name, 'r') as file:
-#             for line in file:
-#                 if (line[-4] + line[-3] + line[-2]) == 'NOK':
-#                     self.count(line[0:8] + ']')
-
-
 
 events = Analiz('events.txt')
 events.read('year')
