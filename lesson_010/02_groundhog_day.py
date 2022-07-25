@@ -19,8 +19,6 @@
 
 ENLIGHTENMENT_CARMA_LEVEL = 777
 
-# TODO здесь ваш код
-
 from random import randint
 
 class IamGodError(Exception):
