@@ -108,23 +108,9 @@ def six(start_point, length, angle, screen=screen,):
         point_0 = end_point
         new_angle += 60
 
-# def triangle(point_0, length, angle, screen=screen,):
-#         for i in range(3):
-#             get_my_vector(point_0, length, angle)
-#             angle = angle + 120
-#             print(point_0)
-
-
-
-
-
-
-
 
 pygame.init()
 
-screen = pygame.display.set_mode((1200, 600))
-clock = pygame.time.Clock()
 
 while True:
     for event in pygame.event.get():
