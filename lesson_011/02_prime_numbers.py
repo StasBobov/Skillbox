@@ -2,17 +2,22 @@
 
 
 # Есть функция генерации списка простых чисел
+import time
 
-
-def get_prime_numbers(n):
-    prime_numbers = []
-    for number in range(2, n+1):
-        for prime in prime_numbers:
-            if number % prime == 0:
-                break
-        else:
-            prime_numbers.append(number)
-    return prime_numbers
+# def get_prime_numbers(n):
+#     prime_numbers = []
+#     for number in range(2, n+1):
+#         for prime in prime_numbers:
+#             if number % prime == 0:
+#                 break
+#         else:
+#             prime_numbers.append(number)
+#     return prime_numbers
+#
+# start_time = time.time()
+# for prime in get_prime_numbers(10000):
+#     print(prime)
+# print(time.time() - start_time)
 
 # Часть 1
 # На основе алгоритма get_prime_numbers создать класс итерируемых обьектов,
@@ -22,14 +27,39 @@ def get_prime_numbers(n):
 
 
 class PrimeNumbers:
-    pass
-    # TODO здесь ваш код
+
+    def __init__(self, n):
+        self.n = n
+        self.num = 1
+
+    def __iter__(self):
+        self.num = 1
+        return self
+
+    def __next__(self):
+        while True:
+            self.num += 1
+            if self.num > self.n:
+                raise StopIteration
+            elif self.num == 2:
+                return self.num
+
+            r = self.num - 1
+            while True:
+                if self.num % r == 0:
+                    break
+                else:
+                    if r == 2:
+                        return self.num
+                    else:
+                        r -= 1
 
 
+start_time = time.time()
 prime_number_iterator = PrimeNumbers(n=10000)
 for number in prime_number_iterator:
     print(number)
-
+print(time.time() - start_time)
 
 # TODO после подтверждения части 1 преподователем, можно делать
 # Часть 2
@@ -37,13 +67,13 @@ for number in prime_number_iterator:
 # Распечатать все простые числа до 10000 в столбик
 
 
-def prime_numbers_generator(n):
-    pass
-    # TODO здесь ваш код
-
-
-for number in prime_numbers_generator(n=10000):
-    print(number)
+# def prime_numbers_generator(n):
+#     pass
+#     # TODO здесь ваш код
+#
+#
+# for number in prime_numbers_generator(n=10000):
+#     print(number)
 
 
 # Часть 3
