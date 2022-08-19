@@ -44,21 +44,21 @@ class PrimeNumbers:
             elif self.num == 2:
                 return self.num
 
-            r = self.num - 1
-            while True:
+            r = 2
+            while r < self.num:
                 if self.num % r == 0:
                     break
                 else:
-                    if r == 2:
+                    if r == (self.num - 1):
                         return self.num
                     else:
-                        r -= 1
-
+                        r += 1
 
 start_time = time.time()
 prime_number_iterator = PrimeNumbers(n=10000)
 for number in prime_number_iterator:
     print(number)
+print(13 in prime_number_iterator)
 print(time.time() - start_time)
 
 # TODO после подтверждения части 1 преподователем, можно делать
