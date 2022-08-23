@@ -24,8 +24,8 @@ class Analiz:
 
     def __init__(self, file_name):
         self.file_name = file_name
-        self.pos = None
-        self.rep = 0
+        self.pos = None # заданный интервал времени
+        self.rep = 0 # число ошибок за заданный интервал времени
 
     def read(self, span):
         if span == 'minet':
@@ -45,7 +45,7 @@ class Analiz:
     def count(self, line):
         if self.pos != line:
             if self.pos != None:
-                self.write_results(self.pos, self.rep)
+                self.write_results(self.pos, self.rep) # если новое время, то записывает мтарый результат в файл
                 self.pos = line
                 self.rep = 1
             else:
