@@ -7,16 +7,33 @@
 # Формат лога: <имя функции> <параметры вызова> <тип ошибки> <текст ошибки>
 # Лог файл открывать каждый раз при ошибке в режиме 'a'
 
+import os
 
-def log_errors(func):
-    pass
-    # TODO здесь ваш код
+# декоратор
 
+def log_errors(file):
+    def get_func(func):
+        def surrogat(*args, **qwargs):
+            try:
+                result = func(*args, **qwargs)
+                return result
+            except Exception as exs:
+                with open(os.path.join(os.path.dirname(__file__), file), 'a' , encoding='utf-8') as f:
+                    f.write(f'{func.__name__} {args, qwargs} {type(exs)} {exs} \n')
+                    raise exs
+        return surrogat
+    return get_func
 
+#
+#
 # Проверить работу на следующих функциях
-@log_errors
+@log_errors('derzky.log')
 def perky(param):
     return param / 0
+
+
+perky(param=500)
+
 
 
 @log_errors
@@ -38,12 +55,14 @@ lines = [
     'Земфира 86',
     'Равшан wmsuuzsxi@mail.ru 35',
 ]
+
+
 for line in lines:
     try:
         check_line(line)
     except Exception as exc:
         print(f'Invalid format: {exc}')
-perky(param=42)
+
 
 
 # Усложненное задание (делать по желанию).
