@@ -75,6 +75,7 @@
 
 
 import os
+import time
 from collections import defaultdict
 
 current_path = os.path.join(os.path.dirname(__file__), 'trades\\trades')
@@ -87,6 +88,7 @@ class Trade_statistic:
         self.tickers_data = {}
         self.zero_volatility = []
         self.valid_tickers = []
+
 
     def run(self):
         for file in os.listdir(self.directory_path):
@@ -139,4 +141,8 @@ class Trade_statistic:
 
 
 t_d = Trade_statistic(current_path)
+started_at = time.time()
 t_d.run()
+ended_at = time.time()
+elapsed = round(ended_at - started_at, 2)  # отличия в этой строке
+print(f'\n Функция работала {elapsed} секунд(ы)')
