@@ -109,9 +109,8 @@ class Husband(Man):
         super().__init__(name)
         self.salary = salary
 
-
     def act(self):
-        if self.live == True:
+        if self.live:
             if super().act():
                 if self.happiness < 20:
                     self.gaming()

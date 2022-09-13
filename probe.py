@@ -1,55 +1,66 @@
-import os
+height = 10
+width = 7
 
-FILE_PATH = os.path.join(os.path.dirname(__file__), 'students.csv', )
+full_str = '* ' * width
+n_f_str = ('* ' * 2) + (' ' * 6) + ('* ' * 2)
 
-with open(FILE_PATH, 'r', encoding='utf-8') as f:
-    headers = f.readline().split(',')
-    students_1 = f.read().split('\n')
+for i in range(2):
+    print(full_str)
 
+for i in range(6):
+    print(n_f_str)
 
-students = []
-for next_student in students_1:
-   students.append(next_student.strip().split(','))
+for i in range(2):
+    print(full_str)
 
-course_students = []
-# STEP1: input
-course_name = input("Enter course name: ")
-# STEP 2: search
-for next_student in students:  # Loop students
-    if course_name == next_student[7]: course_students.append(next_student)
-    pass  # End loop students
-
-table_to_print = ""
-for hdr in headers:
-    table_to_print += f'{hdr:30s}'
-table_to_print += '\n'
-
-for next_student in students:
-    for fld in next_student:
-        table_to_print += f'{fld:30s}'
-    table_to_print += '\n'
-
-print(table_to_print)
-
-FILE_PATH = os.path.join(os.path.dirname(__file__), 'course_students.txt')
-with open(FILE_PATH, 'w', encoding='utf-8') as f:
-    print(table_to_print, file=f)
+'''__________________________________________________________'''
 
 
+for i in range(5):
+    print('* ' * (i +1))
 
-student_name  = input('')
+'''__________________________________________________________'''
 
-for next_student in students:
-    if next_student[1] == student_name:
-        print(next_student)
+height = input('Введите высоту: ')
+
+for i in range(int(height)):
+    print(' ' * (int(height) - i - 1) + '* ' * (i+1))
+
+'''__________________________________________________________'''
 
 
-dict_students = {}
-for i in students:
-    if i[7] in dict_students:
-        dict_students[i[7]].append(i)
-    else:
-        dict_students[i[7]] = [i]
+height = input('Введите высоту: ')
+width = int(height) * 2 - 1
+for row_counter in range(int(height)):
+    left_part = width - (row_counter * 2 + 1)
+    central_part = row_counter + 1
+    print(left_part * ' ' + '* ' * central_part)
 
-for k , m in dict_students.items():
-    print(k, m)
+'''__________________________________________________________'''
+
+dep = input('departure time: ')
+trev = input('travel time: ')
+
+dep_mins = (int(dep[:2]) * 60) + int(dep[3:])
+trev_mins = (int(trev[:1]) * 60) + int(trev[2:])
+ex_hours = (dep_mins + trev_mins) // 60
+ex_mins = (dep_mins + trev_mins) % 60
+print(f'{ex_hours}:{ex_mins}')
+
+'''__________________________________________________________'''
+
+time_24 = input('input time: ')
+
+am_pm = None
+
+time_hours = int(time_24[:2])
+time_mins = int(time_24[3:])
+
+if time_hours >= 12:
+    time_hours -= 12
+    am_pm = 'PM'
+else:
+    time_hours = int(time_24[1:2])
+    am_pm = 'AM'
+
+print(f'{time_hours}:{time_mins} {am_pm}')
