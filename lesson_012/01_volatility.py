@@ -92,7 +92,7 @@ class Trade_statistic:
 
     def run(self):
         for file in os.listdir(self.directory_path):
-            with open(os.path.join(current_path, file)) as f:
+            with open(os.path.join(current_path, file), 'r') as f:
                 headers = f.readline().split(',')
                 ticker_list = f.read().strip().split('\n') # список со всеми сделками одного тикера
                 self.calc(ticker_list)
