@@ -89,7 +89,6 @@ class Trade_statistic:
         self.zero_volatility = []
         self.valid_tickers = []
 
-
     def run(self):
         for file in os.listdir(self.directory_path):
             with open(os.path.join(current_path, file), 'r') as f:

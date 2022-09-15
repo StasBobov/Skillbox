@@ -17,9 +17,6 @@
 #       ТИКЕР7, ТИКЕР8, ТИКЕР9, ТИКЕР10, ТИКЕР11, ТИКЕР12
 # Волатильности указывать в порядке убывания. Тикеры с нулевой волатильностью упорядочить по имени.
 #
-# TODO Внимание! это задание можно выполнять только после зачета lesson_012/01_volatility.py !!!
-
-# TODO тут ваш код в многопоточном стиле
 
 import os
 import time
@@ -36,7 +33,7 @@ def get_time_track(precision):
             result = func(*args, **kwargs)
             ended_at = time.time()
             elapsed = round(ended_at - started_at, precision)  # отличия в этой строке
-            print(f'\nФункция работала {elapsed} секунд(ы)')
+            print(f'\nФункция работала {elapsed} секунд(ы)', flush=True)
             return result
         return surrogate
     return time_track
@@ -55,13 +52,13 @@ def result(my_class):
     for key, value in sorted_dict.items():
         valid_tickers.append(
             (key, value))  # создаём сортированный список кортежей тикеров с волотильностью не равной нулю
-    print('Максимальная волатильность:')
+    print('Максимальная волатильность:', flush=True)
     for i in valid_tickers[-1:-4:-1]:
         print(f'\t{i[0]} - {round(i[1], 2)} %')
-    print('Минимальная волатильность:')
+    print('Минимальная волатильность:', flush=True)
     for i in valid_tickers[2::-1]:
         print(f'\t{i[0]} - {round(i[1], 2)} %')
-    print('Нулевая волатильность:')
+    print('Нулевая волатильность:', flush=True)
     print(end='    ')
     for i in sorted(zero_volatility):
         print(i, end=', ')
@@ -75,7 +72,7 @@ class Trade_statistic(threading.Thread):
         self.name = name
 
     def run(self):
-        print(f'{self.name} создан')
+        print(f'{self.name} создан', flush=True)
         with open(self.file_path, 'r') as f:
             headers = f.readline().split(',')
             ticker_list = f.read().strip().split('\n')  # список со всеми сделками одного тикера
@@ -96,7 +93,7 @@ class Trade_statistic(threading.Thread):
         average_price = (max_price + min_price) / 2
         volatility = ((max_price - min_price) / average_price) * 100
         Trade_statistic.tickers_data[deal_inf[0]] = volatility
-        print(f'\n{self.name} посчитан')
+        print(f'{self.name} посчитан', flush=True)
 
 
 @get_time_track(precision=2)
@@ -108,16 +105,10 @@ def main():
     for stat in statistic:
         stat.join()
 
-
     result(Trade_statistic)
 
 
 if __name__ == "__main__":
     main()
 
-# t_d = Trade_statistic(current_path)
-# started_at = time.time()
-# t_d.run()
-# ended_at = time.time()
-# elapsed = round(ended_at - started_at, 2)  # отличия в этой строке
-# print(f'\n Функция работала {elapsed} секунд(ы)')
+
