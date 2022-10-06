@@ -29,7 +29,25 @@
 # Скрипт должен принимать параметр --result и печатать на консоль:
 #   Количество очков для результатов ХХХ - УУУ.
 
-# TODO тут ваш код
+
+import argparse
+from pprint import pprint
+import logging
+import bowling
+
+
+parser = argparse.ArgumentParser(description='Give me --result')
+parser.add_argument('result', type=str)
+args = parser.parse_args()
+
+# pprint(args)
+# pprint(dir(args))
+log = logging.getLogger('perky')
+log.setLevel(logging.DEBUG)
+fh = logging.FileHandler("perky.log", 'w', 'utf-8')
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+bowling.get_score(game_result=args.result)
+
 
 # При написании кода помнить, что заказчик может захотеть доработок и новых возможностей...
 # И, возможно, вам пригодится паттерн проектирования "Состояние",

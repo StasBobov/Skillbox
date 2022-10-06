@@ -13,8 +13,11 @@ class BowlingTest(unittest.TestCase):
     def test_no_scores(self):
         self.assertEqual(bowling.get_score('--------------------'), 0)
 
-    def test_runtime_erroe(self):
-        self.assertEqual(bowling.get_score('------------------'), Exception)
+    def test_2(self):
+        self.assertEqual(bowling.get_score('1-X34-/1744XX32--'), 104)
+
+    def test_3(self):
+        self.assertEqual(bowling.get_score('-1X34-/1744XX32--'), 104)
 
 
 if __name__ == "__main__":
