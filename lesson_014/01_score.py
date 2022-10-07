@@ -35,18 +35,16 @@ from pprint import pprint
 import logging
 import bowling
 
-
+logging.basicConfig(level=logging.DEBUG, filename='getlog.log', encoding='UTF-8', filemode='w')
 parser = argparse.ArgumentParser(description='Give me --result')
-parser.add_argument('result', type=str)
+# аргументы в консоль вносятся через пробел и всё!
+parser.add_argument('result1', type=str)
+parser.add_argument('result2', type=str)
 args = parser.parse_args()
+first = bowling.get_score(game_result=args.result1)
+second = bowling.get_score(game_result=args.result2)
+print(first,  '-', second)
 
-# pprint(args)
-# pprint(dir(args))
-log = logging.getLogger('perky')
-log.setLevel(logging.DEBUG)
-fh = logging.FileHandler("perky.log", 'w', 'utf-8')
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-bowling.get_score(game_result=args.result)
 
 
 # При написании кода помнить, что заказчик может захотеть доработок и новых возможностей...

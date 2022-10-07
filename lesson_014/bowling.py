@@ -1,7 +1,7 @@
 import logging
 
 # '12 X 34 -/ 17 44 X X 23 --'
-# result = '1-X349/1744XX23--pppp'
+result = '12X34-/1744XX23--'
 
 
 def get_score(game_result):
@@ -9,6 +9,7 @@ def get_score(game_result):
     total_frames = 0
     frame = ""
     for i in game_result:
+        logging.debug(f"Печатаю {i}")
         if frame == "":
             if i.isdigit():
                 frame = i
@@ -72,8 +73,7 @@ def currect_digit(digit):
         return first + second
 
 
-
-logging.basicConfig(level=logging.DEBUG)
+# logging.basicConfig(level=logging.DEBUG, filename='primes.log', encoding='UTF-8')
 # try:
 #     get_score(result)
 # except Exception as arr:
